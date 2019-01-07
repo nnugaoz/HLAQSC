@@ -1,0 +1,899 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+    <script src="../../Contents/My97DatePicker/WdatePicker.js"></script>
+
+    <link href="~/Contents/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <script src="../../Contents/zTree_v3/js/jquery.ztree.core.min.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <script src="../../Scripts_Common/PageList.js"></script>
+</head>
+<body style="overflow-x:hidden;overflow-y:hidden;">
+    <input type="hidden" id="ID" value="" />
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:480px;width:420px;float:left;">
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工种：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="JobName" readonly />
+                    <input type="hidden" id="JobCode" value="" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工作时间：</div>
+                    <input id="WorkDate" type="text" readonly="readonly" placeholder="工作时间" class="form-control" style="background: #fff url('../../Contents/My97DatePicker/skin/datePicker.gif')no-repeat right; cursor: default; width:300px;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">班次：</div>
+                    <select class="form-control" id="WorkClassCode" style="width:300px;"></select>
+                    <input type="hidden" id="WorkClassName" value="" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">录入人：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="WorkManName" readonly value="@ViewBag.UserName">
+                    <input type="hidden" id="WorkManID" value="@ViewBag.UserID" />
+                    <input type="hidden" id="RRoleCode" value="@ViewBag.RRoleCode" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">工作时长：</div>
+                    <input type="text" style="width:230px;" class="form-control" id="WorkHour" readonly value="0.0">
+                    <div class="input-group-addon" style="width: 70px;">小时</div>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border-left:1px solid #C0C0C0;" onclick="Btn_Save();">全部提交</button>
+            </div>
+            <div class="form-group" style="height:480px;width:760px;float:left;">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#div1" aria-controls="div1" name="div1" role="tab" data-toggle="tab">第一项</a></li>
+                    <li role="presentation"><a href="#div2" aria-controls="div2" name="div2" role="tab" data-toggle="tab">第二项(禁用)</a></li>
+                    <li role="presentation"><a href="#div3" aria-controls="div3" name="div3" role="tab" data-toggle="tab">第三项(禁用)</a></li>
+                    <li role="presentation"><a href="#div4" aria-controls="div4" name="div4" role="tab" data-toggle="tab">第四项(禁用)</a></li>
+                    <li role="presentation"><a href="#div5" aria-controls="div5" name="div5" role="tab" data-toggle="tab">第五项(禁用)</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="div1">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left:-30px;">
+                            <div class="col-lg-6 col-sm-6 col-xs-6">
+                                <div class="input-group" style="margin-top:10px;">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">位置：</div>
+                                    <input type="text" style="width:250px;" class="form-control" name="PositionName" readonly>
+                                    <input type="hidden" name="PositionCode">
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div id="div_tree1" class="form-group" style="height:300px;width:335px;float:left;overflow:auto;border:1px solid #C0C0C0;">
+                                    <div id="tree1" class="ztree">
+                                    </div>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工作时长：</div>
+                                    <input type="text" style="width:180px;" class="form-control" name="WorkHour" maxlength="4" value="0.0">
+                                    <div class="input-group-addon" style="width: 70px;">小时</div>
+                                </div>
+                            </div>
+                            <div name="DF" class="col-lg-6 col-sm-6 col-xs-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div2">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left:-30px;">
+                            <div class="col-lg-6 col-sm-6 col-xs-6">
+                                <div class="input-group" style="margin-top:10px;">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">位置：</div>
+                                    <input type="text" style="width:250px;" class="form-control" name="PositionName" readonly>
+                                    <input type="hidden" name="PositionCode">
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div>
+                                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border:1px solid #C0C0C0;" onclick="Btn_Disabled(this);">启用/禁用</button>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div id="div_tree2" class="form-group" style="height:300px;width:335px;float:left;overflow:auto;border:1px solid #C0C0C0;">
+                                    <div id="tree2" class="ztree">
+                                    </div>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工作时长：</div>
+                                    <input type="text" style="width:180px;" class="form-control" name="WorkHour" maxlength="4" value="0.0" disabled>
+                                    <div class="input-group-addon" style="width: 70px;">小时</div>
+                                </div>
+                            </div>
+                            <div name="DF" class="col-lg-6 col-sm-6 col-xs-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div3">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left:-30px;">
+                            <div class="col-lg-6 col-sm-6 col-xs-6">
+                                <div class="input-group" style="margin-top:10px;">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">位置：</div>
+                                    <input type="text" style="width:250px;" class="form-control" name="PositionName" readonly>
+                                    <input type="hidden" name="PositionCode">
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div>
+                                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border:1px solid #C0C0C0;" onclick="Btn_Disabled(this);">启用/禁用</button>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div id="div_tree3" class="form-group" style="height:300px;width:335px;float:left;overflow:auto;border:1px solid #C0C0C0;">
+                                    <div id="tree3" class="ztree">
+                                    </div>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工作时长：</div>
+                                    <input type="text" style="width:180px;" class="form-control" name="WorkHour" maxlength="4" value="0.0" disabled>
+                                    <div class="input-group-addon" style="width: 70px;">小时</div>
+                                </div>
+                            </div>
+                            <div name="DF" class="col-lg-6 col-sm-6 col-xs-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div4">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left:-30px;">
+                            <div class="col-lg-6 col-sm-6 col-xs-6">
+                                <div class="input-group" style="margin-top:10px;">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">位置：</div>
+                                    <input type="text" style="width:250px;" class="form-control" name="PositionName" readonly>
+                                    <input type="hidden" name="PositionCode">
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div>
+                                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border:1px solid #C0C0C0;" onclick="Btn_Disabled(this);">启用/禁用</button>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div id="div_tree4" class="form-group" style="height:300px;width:335px;float:left;overflow:auto;border:1px solid #C0C0C0;">
+                                    <div id="tree4" class="ztree">
+                                    </div>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工作时长：</div>
+                                    <input type="text" style="width:180px;" class="form-control" name="WorkHour" maxlength="4" value="0.0" disabled>
+                                    <div class="input-group-addon" style="width: 70px;">小时</div>
+                                </div>
+                            </div>
+                            <div name="DF" class="col-lg-6 col-sm-6 col-xs-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div5">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left:-30px;">
+                            <div class="col-lg-6 col-sm-6 col-xs-6">
+                                <div class="input-group" style="margin-top:10px;">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">位置：</div>
+                                    <input type="text" style="width:250px;" class="form-control" name="PositionName" readonly>
+                                    <input type="hidden" name="PositionCode">
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div>
+                                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border:1px solid #C0C0C0;" onclick="Btn_Disabled(this);">启用/禁用</button>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div id="div_tree5" class="form-group" style="height:300px;width:335px;float:left;overflow:auto;border:1px solid #C0C0C0;">
+                                    <div id="tree5" class="ztree">
+                                    </div>
+                                </div>
+                                <div style="height:10px;">&nbsp;</div>
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工作时长：</div>
+                                    <input type="text" style="width:180px;" class="form-control" name="WorkHour" maxlength="4" value="0.0" disabled>
+                                    <div class="input-group-addon" style="width: 70px;">小时</div>
+                                </div>
+                            </div>
+                            <div name="DF" class="col-lg-6 col-sm-6 col-xs-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        if ("@ViewBag.HaveRight" == "0") {
+            alert("管理员不能填写数据！");
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+        }
+
+        var mObj = CommonFun_Data();
+        mObj.Fun_Data_Init({ "ID": "", "RecordType": "M", "WorkDate": "", "WorkClassCode": "", "WorkClassName": "", "WorkManID": "", "WorkManName": "", "WorkHour": "0", "RRoleCode": "@ViewBag.RRoleCode", "Status": "1", "Del": "0", "Positions": "{0}" });
+
+        var dfObj = {
+            "Data": [],
+            "JobCode": "",
+            "PositionCode1": "",
+            "PositionCode2": "",
+            "PositionCode3": "",
+            "PositionCode4": "",
+            "PositionCode5": "",
+            "Fun_GetPositionCode": function () {
+                var name = $("li.active a").attr("name");
+                var val = "";
+                eval("(val = this.PositionCode" + name.substring(3) + ");");
+                return val;
+            },
+            "Fun_GetHtml": function () {
+                if (this.JobCode == "1") {
+                    return this.Job1_Html();
+                }
+                if (this.JobCode == "2") {
+                    return this.Job2_Html();
+                }
+                if (this.JobCode == "3") {
+                    return this.Job3_Html();
+                }
+                if (this.JobCode == "4") {
+                    return this.Job4_Html();
+                }
+                if (this.JobCode == "5") {
+                    return this.Job5_Html();
+                }
+                if (this.JobCode == "6") {
+                    return this.Job6_Html();
+                }
+            },
+            "Job1_Html": function () {
+                var html = "";
+                if (this.Data != null && this.Data.length > 0) {
+                    for (var i = 0; i < this.Data.length; i++) {
+                        var row = this.Data[i];
+
+                        html += "<div style='height:10px;'>&nbsp;</div>";
+                        html += "<div class='input-group'>";
+                        html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>" + row.FieldName + "：</div>";
+
+                        if (row.FieldMode == "1") { // 数字
+                            html += "<input type='text' style='width:150px;' class='form-control' name='" + row.FieldKey + "' mode='" + row.FieldMode + "' maxlength='10' value='0'>";
+                            html += "<div class='input-group-addon' style='width: 50px;'>" + row.FieldUnitName + "</div>";
+                        }
+                        if (row.FieldMode == "2") { // 文本
+                            html += "<input type='text' style='width:200px;' class='form-control' name='" + row.FieldKey + "' value='' maxlength='20'>";
+                        }
+                        if (row.FieldMode == "3") { // 时间
+                            html += "<input name='" + row.FieldKey + "' type='text' readonly='readonly' placeholder='" + row.FieldName + "' class='form-control' style='background: #fff url(\"../../Contents/My97DatePicker/skin/datePicker.gif\")no-repeat right; cursor: default; width:200px;' onclick='WdatePicker({ dateFmt: \"yyyy-MM-dd HH:mm:ss\" })' />";
+                        }
+
+                        html += "</div>";
+                    }
+                }
+                return html;
+            },
+            "Job2_Html": function () {
+                var html = "";
+                if (this.Data != null && this.Data.length > 0) {
+                    for (var i = 0; i < this.Data.length; i++) {
+                        var row = this.Data[i];
+
+                        html += "<div style='height:10px;'>&nbsp;</div>";
+                        html += "<div class='input-group'>";
+                        html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>" + row.FieldName + "：</div>";
+
+                        if (row.FieldMode == "1") { // 数字
+                            html += "<input type='text' style='width:150px;' class='form-control' name='" + row.FieldKey + "' mode='" + row.FieldMode + "' maxlength='10' value='0'>";
+                            html += "<div class='input-group-addon' style='width: 50px;'>" + row.FieldUnitName + "</div>";
+                        }
+                        if (row.FieldMode == "2") { // 文本
+                            html += "<input type='text' style='width:200px;' class='form-control' name='" + row.FieldKey + "' value='' maxlength='20'>";
+                        }
+                        if (row.FieldMode == "3") { // 时间
+                            html += "<input name='" + row.FieldKey + "' type='text' readonly='readonly' placeholder='" + row.FieldName + "' class='form-control' style='background: #fff url(\"../../Contents/My97DatePicker/skin/datePicker.gif\")no-repeat right; cursor: default; width:200px;' onclick='WdatePicker({ dateFmt: \"yyyy-MM-dd HH:mm:ss\" })' />";
+                        }
+
+                        html += "</div>";
+                    }
+                }
+                return html;
+            },
+            "Job3_Html": function () {
+                var html = "";
+                if (this.Data != null && this.Data.length > 0) {
+                    html += "<div style='height:10px;'>&nbsp;</div>";
+                    html += "<div class='input-group'>";
+                    html += "<div class='input-group-addon' style='width: 100px; text-align: right; color: red;'>设备：</div>";
+
+                    html += "<select class='form-control' name='EquimentID' style='width: 200px;'>";
+                    var equiList = equiObj.Data;
+                    if (equiList != null && equiList.length > 0) {
+                        for (var i = 0; i < equiList.length; i++) {
+                            var row = equiList[i];
+                            html += "<option value='" + row.ID + "'>" + row.Title + "</option>";
+                        }
+                    }
+                    html += "</select>";
+
+                    html += "</div>";
+
+                    for (var i = 0; i < this.Data.length; i++) {
+                        var row = this.Data[i];
+
+                        html += "<div style='height:10px;'>&nbsp;</div>";
+                        html += "<div class='input-group'>";
+                        html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>" + row.FieldName + "：</div>";
+
+                        if (row.FieldMode == "1") { // 数字
+                            var selectObj_type = dfTypeObj.GetSelectByDFKey(row.FieldKey);
+                            var selectObj_unit = dfUnitObj.GetSelectByDFKey(row.FieldKey);
+
+                            html += "<input type='text' style='width:50px;' class='form-control' name='" + row.FieldKey + "' mode='" + row.FieldMode + "' maxlength='10' value='0' onch='1'>";
+
+                            if (selectObj_unit != null && selectObj_unit.length > 0) {
+                                html += "<div class='input-group-addon' style='width: 50px;'>车</div>";
+                            } else {
+                                html += "<div class='input-group-addon' style='width: 50px;'>" + row.FieldUnitName + "</div>";
+                            }
+
+                            if (selectObj_type != null && selectObj_type.length > 0) {
+                                html += "<select class='form-control' name='DFType' style='width: 100px;'>";
+                                for (var k = 0; k < selectObj_type.length; k++) {
+                                    html += "<option value='" + selectObj_type[k].SelectVal + "'>" + selectObj_type[k].SelectTitle + "</option>";
+                                }
+                                html += "</select>";
+                            }
+
+                            if (selectObj_unit != null && selectObj_unit.length > 0) {
+                                html += "</div>";
+                                html += "<div style='height:10px;'>&nbsp;</div>";
+                                html += "<div class='input-group'>";
+                                html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>车型：</div>";
+
+                                html += "<select class='form-control' name='DFUnit' style='width: 200px;'>";
+                                for (var k = 0; k < selectObj_unit.length; k++) {
+                                    html += "<option value='" + selectObj_unit[k].SelectVal + "'>" + selectObj_unit[k].SelectTitle + "</option>";
+                                }
+                                html += "</select>";
+
+                                html += "</div>";
+                                html += "<div style='height:10px;'>&nbsp;</div>";
+                                html += "<div class='input-group'>";
+                                html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>重量：</div>";
+
+                                html += "<input type='text' style='width:200px;' class='form-control' name='" + row.FieldKey + "_Weight' value='0.000' readonly>";
+                            }
+                        }
+                        if (row.FieldMode == "2") { // 文本
+                            html += "<input type='text' style='width:200px;' class='form-control' name='" + row.FieldKey + "' value='' maxlength='20'>";
+                        }
+                        if (row.FieldMode == "3") { // 时间
+                            html += "<input name='" + row.FieldKey + "' type='text' readonly='readonly' placeholder='" + row.FieldName + "' class='form-control' style='background: #fff url(\"../../Contents/My97DatePicker/skin/datePicker.gif\")no-repeat right; cursor: default; width:200px;' onclick='WdatePicker({ dateFmt: \"yyyy-MM-dd HH:mm:ss\" })' />";
+                        }
+
+                        html += "</div>";
+                    }
+                }
+                return html;
+            },
+            "Job4_Html": function () {
+                var html = "";
+                if (this.Data != null && this.Data.length > 0) {
+                    html += "<div style='height:10px;'>&nbsp;</div>";
+                    html += "<div class='input-group'>";
+                    html += "<div class='input-group-addon' style='width: 100px; text-align: right; color: red;'>目的地：</div>";
+
+                    html += "<select class='form-control' name='EquimentID' style='width: 200px;'>";
+                    var equiList = equiObj.GetEquiByPosition(this.Fun_GetPositionCode());
+                    if (equiList != null && equiList.length > 0) {
+                        for (var i = 0; i < equiList.length; i++) {
+                            var row = equiList[i];
+                            html += "<option value='" + row.ID + "'>" + row.Name + "</option>";
+                        }
+                    }
+                    html += "</select>";
+
+                    html += "</div>";
+
+                    for (var i = 0; i < this.Data.length; i++) {
+                        var row = this.Data[i];
+
+                        html += "<div style='height:10px;'>&nbsp;</div>";
+                        html += "<div class='input-group'>";
+                        html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>" + row.FieldName + "：</div>";
+
+                        if (row.FieldMode == "1") { // 数字
+                            var selectObj_type = dfTypeObj.GetSelectByDFKey(row.FieldKey);
+                            var selectObj_unit = dfUnitObj.GetSelectByDFKey(row.FieldKey);
+
+                            html += "<input type='text' style='width:50px;' class='form-control' name='" + row.FieldKey + "' mode='" + row.FieldMode + "' maxlength='10' value='0' onch='1'>";
+
+                            if (selectObj_unit != null && selectObj_unit.length > 0) {
+                                html += "<div class='input-group-addon' style='width: 50px;'>车</div>";
+                            } else {
+                                html += "<div class='input-group-addon' style='width: 50px;'>" + row.FieldUnitName + "</div>";
+                            }
+
+                            if (selectObj_type != null && selectObj_type.length > 0) {
+                                html += "<select class='form-control' name='DFType' style='width: 100px;'>";
+                                for (var k = 0; k < selectObj_type.length; k++) {
+                                    html += "<option value='" + selectObj_type[k].SelectVal + "'>" + selectObj_type[k].SelectTitle + "</option>";
+                                }
+                                html += "</select>";
+                            }
+
+                            if (selectObj_unit != null && selectObj_unit.length > 0) {
+                                html += "</div>";
+                                html += "<div style='height:10px;'>&nbsp;</div>";
+                                html += "<div class='input-group'>";
+                                html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>车型：</div>";
+
+                                html += "<select class='form-control' name='DFUnit' style='width: 200px;'>";
+                                for (var k = 0; k < selectObj_unit.length; k++) {
+                                    html += "<option value='" + selectObj_unit[k].SelectVal + "'>" + selectObj_unit[k].SelectTitle + "</option>";
+                                }
+                                html += "</select>";
+
+                                html += "</div>";
+                                html += "<div style='height:10px;'>&nbsp;</div>";
+                                html += "<div class='input-group'>";
+                                html += "<div class='input-group-addon' style='width: 100px; text-align: right;'>重量：</div>";
+
+                                html += "<input type='text' style='width:200px;' class='form-control' name='" + row.FieldKey + "_Weight' value='0.000' readonly>";
+                            }
+                        }
+                        if (row.FieldMode == "2") { // 文本
+                            html += "<input type='text' style='width:200px;' class='form-control' name='" + row.FieldKey + "' value='' maxlength='20'>";
+                        }
+                        if (row.FieldMode == "3") { // 时间
+                            html += "<input name='" + row.FieldKey + "' type='text' readonly='readonly' placeholder='" + row.FieldName + "' class='form-control' style='background: #fff url(\"../../Contents/My97DatePicker/skin/datePicker.gif\")no-repeat right; cursor: default; width:200px;' onclick='WdatePicker({ dateFmt: \"yyyy-MM-dd HH:mm:ss\" })' />";
+                        }
+
+                        html += "</div>";
+                    }
+                }
+                return html;
+            },
+            "Job5_Html": function () {
+                return "";
+            },
+            "Job6_Html": function () {
+                return "";
+            }
+        }
+        var dfTypeObj = {
+            "Data": [],
+            "GetSelectByDFKey": function (dfKey) {
+                var obj = this.Data;
+                var ret = [];
+                if (obj != null && obj.length > 0) {
+                    for (var i = 0; i < obj.length; i++) {
+                        var row = obj[i];
+                        if (row.DFKey == dfKey) {
+                            ret.push(row);
+                        }
+                    }
+                }
+                return ret;
+            }
+        }
+        var dfUnitObj = {
+            "Data": [],
+            "GetSelectByDFKey": function (dfKey) {
+                var obj = this.Data;
+                var ret = [];
+                if (obj != null && obj.length > 0) {
+                    for (var i = 0; i < obj.length; i++) {
+                        var row = obj[i];
+                        if (row.DFKey == dfKey) {
+                            ret.push(row);
+                        }
+                    }
+                }
+                return ret;
+            }
+        }
+        var equiObj = {
+            "Data": [],
+            "InitEqui": function (obj) {
+                if (obj != null && obj.length > 0) {
+                    if (this.Data != null && this.Data.length > 0) {
+                        for (var i = 0; i < obj.length; i++) {
+                            var row = obj[i];
+
+                            for (var j = 0; j < this.Data.length; j++) {
+                                if (row.EquipmentID == this.Data[j].ID) {
+                                    if (this.Data[j].Position == null) {
+                                        this.Data[j].Position = [row.PositionCode];
+                                    } else {
+                                        this.Data[j].Position.push(row.PositionCode);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "GetEquiByPosition": function (PositionCode) {
+                var obj = [];
+
+                if (PositionCode == null || PositionCode == "") {
+                    return null;
+                }
+
+                if (this.Data != null && this.Data.length > 0) {
+                    for (var i = 0; i < this.Data.length; i++) {
+                        var row = this.Data[i];
+
+                        if (row.Position != null && row.Position.length > 0) {
+                            for (var j = 0; j < row.Position.length; j++) {
+                                if (row.Position[j] == PositionCode.substring(0, row.Position[j].length)) {
+                                    obj.push({ "ID": row.ID, "Name": row.Title});
+                                }
+                            }
+                        }
+                    }
+                }
+                return obj;
+            }
+        }
+
+        var tree1;
+        var tree2;
+        var tree3;
+        var tree4;
+        var tree5;
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick: zTreeOnClick
+            }
+        };
+
+        function zTreeOnClick(event, treeId, treeNode) {
+            var id = "div" + treeId.substring(4);
+
+            var code = treeNode.id;
+            if (code.length == 3) {
+                alert("不能选择中段！");
+                $("#" + id + " input[name='PositionCode']").val("");
+                $("#" + id + " input[name='PositionName']").val("");
+                return false;
+            }
+            if (code.length == 6) {
+                alert("不能选择采场！");
+                $("#" + id + " input[name='PositionCode']").val("");
+                $("#" + id + " input[name='PositionName']").val("");
+                return false;
+            }
+            if (code.length == 9) {
+            }
+
+            $("#" + id + " input[name='PositionCode']").val(treeNode.id);
+            $("#" + id + " input[name='PositionName']").val(treeNode.name);
+
+            eval("(dfObj.PositionCode" + treeId.substring(4) + " = treeNode.id);");
+
+            if ($("#" + id + " input[name='WorkHour']").attr("disabled") == "disabled") {
+                var titleObj = $("ul.nav-tabs a[name='" + id + "']");
+                titleObj.text(titleObj.text().replace("(禁用)", ""));
+                $("#" + id + " input").removeAttr("disabled");
+
+                $("#" + id + " div[name='DF']").append(dfObj.Fun_GetHtml());
+
+                $("#" + id + " input[onch='1']").unbind().change(function () {
+                    Fun_SetWeight($(this));
+                });
+                $("#" + id + " select[name='DFUnit']").unbind().change(function () {
+                    Fun_SetWeight($(this).parent().parent().find("input[onch='1']"));
+                });
+            } else {
+                $("#" + id + " select[name='EquimentID']").children().remove();
+
+                var html = "";
+                var equiList = equiObj.GetEquiByPosition(dfObj.Fun_GetPositionCode());
+                if (equiList != null && equiList.length > 0) {
+                    for (var i = 0; i < equiList.length; i++) {
+                        var row = equiList[i];
+                        html += "<option value='" + row.ID + "'>" + row.Name + "</option>";
+                    }
+                }
+                $("#" + id + " select[name='EquimentID']").html(html);
+            }
+        };
+
+        $(function () {
+            $("#WorkDate").val(CommonFun_GetNowFormatDate());
+
+            var data;
+            eval("(data = @Html.Raw(ViewBag.Ret));");
+
+            var obj = data.obj4;
+            if (obj != null && obj.length > 0) {
+                dfObj.JobCode = obj[0].JobCode;
+                $("#JobCode").val(obj[0].JobCode);
+                $("#JobName").val(obj[0].JobName);
+
+                if (obj[0].JobCode == "3") {
+                    $("div.tab-pane input[name='PositionName']").parent().remove();
+                    $("div.tab-pane div.ztree").parent().next().remove();
+                    $("div.tab-pane div.ztree").parent().remove();
+                }
+
+                if (obj[0].JobCode == "3" || obj[0].JobCode == "4") {
+                    $("div.tab-pane input[name='WorkHour']").parent().children().hide();
+                    //$("div.tab-pane input[name='WorkHour']").parent().children().attr("style", "width:100px; text-align:right;");
+                }
+            }
+
+            // 初始化班次
+            CommonFun_Select_Init("WorkClassCode", data.obj5);
+
+            // 初始化树
+            if (obj[0].JobCode == "3") {
+            } else {
+                var obj = data.obj6;
+                if (obj != null && obj.length > 0) {
+                    for (var i = 0; i < 5; i++) {
+                        var id = "tree" + (i + 1);
+
+                        eval("($.fn.zTree.init($('#" + id + "'), setting, obj));");
+                        eval("(" + id + " = $.fn.zTree.getZTreeObj('" + id + "'));");
+                        eval("(" + id + ".expandAll(true));");
+                    }
+                }
+            }
+
+            dfTypeObj.Data = data.obj8;
+            dfUnitObj.Data = data.obj9;
+            equiObj.Data = data.obj10;
+            equiObj.InitEqui(data.obj11);
+
+            // 初始化字段
+            var obj = data.obj7;
+            dfObj.Data = obj;
+            $("#div1 div[name='DF']").append(dfObj.Fun_GetHtml());
+
+            $("div.tab-content input[name='WorkHour']").change(function () {
+                Fun_SetWorkHour();
+            });
+
+            $("div.tab-content input[onch='1']").unbind().change(function () {
+                Fun_SetWeight($(this));
+            });
+            $("div.tab-content select[name='DFUnit']").unbind().change(function () {
+                Fun_SetWeight($(this).parent().parent().find("input[onch='1']"));
+            });
+        });
+
+        function Btn_Disabled(obj) {
+            var divID = $(obj).parent().parent().parent().parent().attr("ID");
+            var titleObj = $("ul.nav-tabs a[name='" + divID + "']");
+            if ($("#" + divID + " input[name='WorkHour']").attr("disabled") == "disabled") {
+                titleObj.text(titleObj.text().replace("(禁用)", ""));
+                $("#" + divID + " input").removeAttr("disabled");
+
+                $("#" + divID + " div[name='DF']").append(dfObj.Fun_GetHtml());
+
+                $("#" + divID + " input[onch='1']").unbind().change(function () {
+                    Fun_SetWeight($(this));
+                });
+                $("#" + divID + " select[name='DFUnit']").unbind().change(function () {
+                    Fun_SetWeight($(this).parent().parent().find("input[onch='1']"));
+                });
+            } else {
+                titleObj.text(titleObj.text() + "(禁用)");
+                $("#" + divID + " input[name='PositionCode']").val("");
+                $("#" + divID + " input[name='PositionName']").val("");
+                $("#" + divID + " input").attr("disabled", "disabled");
+                // 移除现有的字段
+                $("#" + divID + " div[name='DF']").children().remove();
+            }
+            $("#" + divID + " input[name='WorkHour']").val("0.0");
+
+            Fun_SetWorkHour();
+        }
+
+        function Fun_SetWorkHour() {
+            var h = 0;
+            $("div.tab-content input[name='WorkHour']").each(function () {
+                var dh = parseFloat($(this).val());
+                if (isNaN(dh)) {
+                    dh = 0.0;
+                } else {
+                    dh = parseFloat(dh.toFixed(1));
+                }
+                h += dh;
+                $(this).val(dh.toFixed(1));
+            });
+
+            $("#WorkHour").val(h.toFixed(1));
+        }
+
+        function Fun_SetWeight(obj) {
+            var hsl = 0;
+            var ch = parseFloat($(obj).val());
+            if (isNaN(ch)) {
+                ch = 0;
+                $(obj).val(0);
+            }
+
+            var type = $(obj).parent().parent().find("select[name='DFUnit']").val();
+            var list = dfUnitObj.GetSelectByDFKey($(obj).attr("name"));
+            for (var i = 0; i < list.length; i++) {
+                var row = list[i];
+                if (row.SelectVal == type) {
+                    hsl = row.Unit_0_Rate;
+                }
+            }
+
+            $(obj).parent().parent().find("input[name='" + $(obj).attr("name") + "_Weight']").val((ch * hsl).toFixed(3));
+        }
+    </script>
+
+    <script type="text/javascript">
+        function Btn_Save() {
+            var date = $("#WorkDate").val();
+            if (date > CommonFun_GetNowFormatDate()) {
+                alert("工作时间不能超过当前时间！");
+                return false;
+            }
+
+            $("#WorkClassCode").find("option").each(function () {
+                if ($(this).attr("value") == $("#WorkClassCode").val()) {
+                    $("#WorkClassName").val($(this).text());
+                }
+            });
+
+            var positionData = {
+                "Data": [],
+                "GetJson": function () {
+                    // PositionCode;WorkHour;FieldKey,FieldValue*FieldKey,FieldValue*FieldKey,FieldValue*FieldKey,FieldValue*FieldUnit,FieldUnit*%
+                    var json = "";
+                    if (this.Data == null || this.Data.length == 0) {
+                        return "";
+                    } else {
+                        for (var i = 0; i < this.Data.length; i++) {
+                            var row = this.Data[i];
+
+                            json += "" + row.PositionCode + ";" + row.EquimentID + ";" + row.WorkHour + ";";
+
+                            if (row.DFs == null && row.DFs.length == 0) {
+                                json += "";
+                            } else {
+                                for (var j = 0; j < row.DFs.length; j++) {
+                                    var df = row.DFs[j];
+
+                                    json += "" + df.FieldKey + "," + df.FieldValue + "," + df.FieldType + "," + df.FieldUnit + "*";
+                                }
+                            }
+
+                            if (json != "") {
+                                json += "*";
+                            }
+                        }
+                    }
+                    return json;
+                }
+            }
+
+            var ret = "";
+            mObj.Fun_Set_OneCheckInfo("WorkDate", "工作时间", "null");
+            try {
+                mObj.Fun_Get_Html();
+                mObj.Fun_Check();
+
+                str = mObj.Fun_Serialize_All();
+
+                var tf = true;
+                $("div.tab-content div.tab-pane").each(function () {
+                    if (!tf) {
+                        return;
+                    }
+
+                    var positionCode = $(this).find("input[name='PositionCode']").val();
+                    var obj_wh = $(this).find("input[name='WorkHour']");
+                    var obj_div = $(obj_wh.parent().parent().parent().parent());
+                    if (dfObj.JobCode == "3") {
+                        positionCode = "";
+                    }
+                    var obj_title = $("ul.nav-tabs a[name='" + obj_div.attr("ID") + "']");
+                    if ($(this).find("input[name='WorkHour']").attr("disabled") == "disabled") { // 位置禁用
+                    } else { // 位置禁用
+                        if (positionCode == "" && dfObj.JobCode != "3") { // 未选择位置
+                            alert("请选择" + $(obj_title).text() + "的位置！");
+                            tf = false;
+                            return;
+                        } else { // 选择了设备
+                            var equiID = $(obj_div).find("select[name='EquimentID']").val();
+                            if (equiID == null) {
+                                equiID = "";
+                            }
+
+                            var wh = parseFloat($(obj_div).find("input[name='WorkHour']").val());
+                            if (wh <= 0 && (dfObj.JobCode == "1" || dfObj.JobCode == "2" || dfObj.JobCode == "5" || dfObj.JobCode == "6")) { // 放矿和出渣不验证工作时长
+                                alert("请输入" + $(obj_title).text() + "的工作时长！");
+                                tf = false;
+                                return;
+                            } else {
+                                var dfData = [];
+                                obj_div.find("div[name='DF'] input").each(function () {
+                                    var val = $(this).val();
+                                    if ($(this).attr("mode") == "1") {
+                                        val = parseFloat(val);
+                                        if (isNaN(val)) {
+                                            val = 0;
+                                        }
+                                    }
+
+                                    dfData.push({ "FieldKey": $(this).attr("name"), "FieldValue": val, "FieldType": obj_div.find("select[name='DFType']").val(), "FieldUnit": obj_div.find("select[name='DFUnit']").val() });
+                                });
+
+                                positionData.Data.push({ "PositionCode": positionCode, "EquimentID": equiID, "WorkHour": wh, "DFs": dfData });
+                            }
+                        }
+                    }
+                });
+                if (!tf) {
+                    return;
+                }
+
+                ret = mObj.Fun_Serialize_All();
+                ret = ret.replace("Positions={0}", "Positions=" + positionData.GetJson());
+            } catch (err) {
+                alert(err);
+                return false;
+            }
+
+            layer.load(2);
+            var ajaxObj_check = CommonFun_Ajax();
+            ajaxObj_check.url = "../api/C11_MineDataEntry/DoCheckData";
+            ajaxObj_check.data = { "para": mObj.Fun_Serialize_All() };
+            ajaxObj_check.getData(function (data) {
+                if (data.ret_status == ParaData.ret.Succes) {
+
+                    var ajaxObj = CommonFun_Ajax();
+                    ajaxObj.url = "../api/C11_MineDataEntry/DoSave";
+                    ajaxObj.data = { "para": ret };
+                    ajaxObj.getData(function (data) {
+                        layer.closeAll("loading");
+
+                        if (data.ret_status == ParaData.ret.Succes) {
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));
+                        } else {
+                            alert("保存失败！");
+                        }
+                    }, function () {
+                        // Error
+                        layer.closeAll("loading");
+                    });
+
+                } else {
+                    layer.closeAll("loading");
+                    alert("保存失败，当前用户该天已存在数据！");
+                }
+            }, function () {
+                // Error
+                layer.closeAll("loading");
+            });
+        }
+    </script>
+</body>
+</html>

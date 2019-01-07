@@ -1,0 +1,232 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detail</title>
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts_Common/Common.js"></script>
+    <script type="text/javascript" src="~/Scripts_Common/PageList.js"></script>
+    <script type="text/javascript">
+
+        var dataObj = PageListFun_Data();
+        dataObj.UserID = "@ViewBag.UserID";
+        dataObj.OrgCode = "@ViewBag.OrgCode";
+        dataObj.RRoleCode = "@ViewBag.RRoleCode";
+        dataObj.DRoleType = "@ViewBag.DRoleType";
+        dataObj.Fun_Loading = function () {
+            initHtml();
+        };
+        dataObj.PageList_BtnInfo.Btns = [];
+
+        var lPlanID = "@ViewBag.PID";
+        if (lPlanID != "") {
+            dataObj.Para1 = lPlanID;
+        }
+
+        $(function () {
+            initHtml();
+        });
+
+        function initHtml() {
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/D01_Plan/GetPlanDetail";
+            ajaxObj.data = { "para": dataObj.PageList_Json() };
+            ajaxObj.getData(function (data) {
+                dataObj.Fun_InitData(data.obj1);
+                dataObj.PageList_Count = data.obj1.length;
+                dataObj.Fun_InitTable("zongbiao_tbody");
+
+                dataObj.Fun_InitData(data.obj2);
+                dataObj.PageList_Count = data.obj2.length;
+                dataObj.Fun_InitTable("caijue_tbody");
+
+                dataObj.Fun_InitData(data.obj3);
+                dataObj.PageList_Count = data.obj3.length;
+                dataObj.Fun_InitTable("juejin_tbody");
+
+                dataObj.Fun_InitData(data.obj4);
+                dataObj.PageList_Count = data.obj4.length;
+                dataObj.Fun_InitTable("caikuang_tbody");
+
+                dataObj.Fun_InitData(data.obj5);
+                dataObj.PageList_Count = data.obj5.length;
+                dataObj.Fun_InitTable("chukuang_tbody");
+            }, function () {
+                // Error
+            });
+        }
+
+        function TabClicked(obj) {
+            $(obj).parent().siblings().removeClass("active");
+            $(obj).parent().addClass("active");
+            switch ($(obj).prop("id")) {
+                case "lnkTabZongBiao":
+                    $("#divTabPageZongBiao").css("display", "block");
+                    $("#divTabPageCaiJue").css("display", "none");
+                    $("#divTabPageJueJin").css("display", "none");
+                    $("#divTabPageCaiKuang").css("display", "none");
+                    $("#divTabPageChuKuang").css("display", "none");
+                    break;
+
+                case "lnkTabCaiJue":
+                    $("#divTabPageZongBiao").css("display", "none");
+                    $("#divTabPageCaiJue").css("display", "block");
+                    $("#divTabPageJueJin").css("display", "none");
+                    $("#divTabPageCaiKuang").css("display", "none");
+                    $("#divTabPageChuKuang").css("display", "none");
+                    break;
+
+                case "lnkTabJueJin":
+                    $("#divTabPageZongBiao").css("display", "none");
+                    $("#divTabPageCaiJue").css("display", "none");
+                    $("#divTabPageJueJin").css("display", "block");
+                    $("#divTabPageCaiKuang").css("display", "none");
+                    $("#divTabPageChuKuang").css("display", "none");
+                    break;
+
+                case "lnkTabCaiKuang":
+                    $("#divTabPageZongBiao").css("display", "none");
+                    $("#divTabPageCaiJue").css("display", "none");
+                    $("#divTabPageJueJin").css("display", "none");
+                    $("#divTabPageCaiKuang").css("display", "block");
+                    $("#divTabPageChuKuang").css("display", "none");
+                    break;
+
+                case "lnkTabChuKuang":
+                    $("#divTabPageZongBiao").css("display", "none");
+                    $("#divTabPageCaiJue").css("display", "none");
+                    $("#divTabPageJueJin").css("display", "none");
+                    $("#divTabPageCaiKuang").css("display", "none");
+                    $("#divTabPageChuKuang").css("display", "block");
+                    break;
+
+                default:
+                    $("#divTabPageZongBiao").css("display", "none");
+                    $("#divTabPageCaiJue").css("display", "none");
+                    $("#divTabPageJueJin").css("display", "none");
+                    $("#divTabPageCaiKuang").css("display", "none");
+                    $("#divTabPageChuKuang").css("display", "none");
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="margin:10px;">
+        <div id="divTabControl">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#" id="lnkTabZongBiao" onclick="TabClicked(this)">总表</a></li>
+                <li role="presentation"><a href="#" id="lnkTabCaiJue" onclick="TabClicked(this)">采掘</a></li>
+                <li role="presentation"><a href="#" id="lnkTabJueJin" onclick="TabClicked(this)">掘进</a></li>
+                <li role="presentation"><a href="#" id="lnkTabCaiKuang" onclick="TabClicked(this)">采矿</a></li>
+                <li role="presentation"><a href="#" id="lnkTabChuKuang" onclick="TabClicked(this)">出矿</a></li>
+            </ul>
+        </div>
+        <div id="divTabPageZongBiao" style="display:block">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th name="ZB1" class="l">指标1</th>
+                        <th name="ZB2" class="l">指标2</th>
+                        <th name="DW" class="l">单位</th>
+                        <th name="BYJH" class="l">本月计划</th>
+                    </tr>
+                </thead>
+                <tbody id="zongbiao_tbody"></tbody>
+            </table>
+        </div>
+        <div id="divTabPageCaiJue" style="display:none">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th name="ZB1" class="l">指标1</th>
+                        <th name="ZB2" class="l">指标2</th>
+                        <th name="DW" class="l">单位</th>
+                        <th name="NDJH" class="l">年度计划</th>
+                        <th name="YJWC1" class="l">截止上月预计完成</th>
+                        <th name="WCL1" class="l">截止上月完成率</th>
+                        <th name="BYJH" class="l">本月计划</th>
+                        <th name="YJWC2" class="l">截止本月预计完成</th>
+                        <th name="WCL2" class="l">截止本月完成率</th>
+                    </tr>
+                </thead>
+                <tbody id="caijue_tbody"></tbody>
+            </table>
+        </div>
+        <div id="divTabPageJueJin" style="display:none">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th name="ZD" class="l">中段</th>
+                        <th name="CC" class="l">采场</th>
+                        <th name="ZYM" class="l">工程名称</th>
+                        <th name="GCLX" class="l">工程类型（性质）</th>
+                        <th name="TX" class="l">台效（m/班）</th>
+                        <th name="TB" class="l">台班（个）</th>
+                        <th name="GG" class="l">规格（m x m）</th>
+                        <th name="DMJ" class="l">断面积（m2）</th>
+                        <th name="CD" class="l">长度（m）</th>
+                        <th name="TJ" class="l">体积（m3）</th>
+                        <th name="JJL" class="l">掘进量（t）</th>
+                        <th name="ZHBM" class="l">折合标米（m）</th>
+                        <th name="FC" class="l">副产（t）</th>
+                        <th name="SGSJ" class="l">施工时间</th>
+                        <th name="JT" class="l">机台</th>
+                    </tr>
+                </thead>
+                <tbody id="juejin_tbody"></tbody>
+            </table>
+        </div>
+        <div id="divTabPageCaiKuang" style="display:none">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th name="ZD" class="l">中段</th>
+                        <th name="CC" class="l">采场</th>
+                        <th name="CKLX" class="l">采矿类型</th>
+                        <th name="DZPW_X" class="l">地质品味_锌（%）</th>
+                        <th name="DZPW_T" class="l">地质品味_铁（%）</th>
+                        <th name="DZPW_C" class="l">地质品味_铜（%）</th>
+                        <th name="DZPW_L" class="l">地质品味_铅（%）</th>
+                        <th name="CKL" class="l">采矿量（t）</th>
+                        <th name="TCZL" class="l">填充总量（m3）</th>
+                        <th name="WSL" class="l">尾砂量（m3）</th>
+                        <th name="JJL" class="l">胶结量（m3）</th>
+                        <th name="KSSJ" class="l">开始时间</th>
+                        <th name="JSSJ" class="l">结束时间</th>
+                        <th name="BZ" class="l">备注</th>
+                    </tr>
+                </thead>
+                <tbody id="caikuang_tbody"></tbody>
+            </table>
+        </div>
+        <div id="divTabPageChuKuang" style="display:none">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th name="ZD" class="l">中段</th>
+                        <th name="CC" class="l">采场</th>
+                        <th name="XHKL" class="l">消耗矿量</th>
+                        <th name="DZPW_X" class="l">地质品味_锌（%）</th>
+                        <th name="DZPW_T" class="l">地质品味_铁（%）</th>
+                        <th name="DZPW_C" class="l">地质品味_铜（%）</th>
+                        <th name="DZPW_L" class="l">地质品味_铅（%）</th>
+                        <th name="PHL" class="l">贫化率</th>
+                        <th name="SSL" class="l">损失率</th>
+                        <th name="CKPW_X" class="l">出矿品位_锌</th>
+                        <th name="CKPW_T" class="l">出矿品位_铁</th>
+                        <th name="CKL" class="l">出矿量</th>
+                    </tr>
+                </thead>
+                <tbody id="chukuang_tbody"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <script src="../../Scripts_Common/PageList.js"></script>
+</head>
+<body style="overflow-x:hidden;overflow-y:hidden;">
+    <input type="hidden" id="JobCode" value="" />
+    <input type="hidden" id="DFID" value="" />
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:480px;width:760px;float:left;">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-content nopadding">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th name="i" class="c" style="width:80px;">序号</th>
+                                                <th name="Job_Str" class="l">工种</th>
+                                                <th name="FieldName" class="l">字段名称</th>
+                                                <th name="op" class="c" style="width:120px;">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pagelist_1_tbody"></tbody>
+                                    </table>
+                                    <div id="pagelist_1" style="margin-top:-20px;text-align:right;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="height:480px;width:420px;float:left;">
+                <div class="input-group">
+                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;" onclick="Btn_Add();">新增</button>
+                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border-left:1px solid #C0C0C0;" onclick="Btn_Save();">提交</button>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">所属类型：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="Title" readonly>
+                    <input type="hidden" id="Type1" value="Job" />
+                    <input type="hidden" id="Type2" value="1" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">字段名称：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="FieldName" maxlength="20">
+                    <input type="hidden" id="FieldKey" value="Job" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">值单位：</div>
+                    <select class="form-control" id="FieldUnit" style="width:300px;"></select>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">数据类型：</div>
+                    <select class="form-control" id="FieldType" style="width:300px;"></select>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">值类型：</div>
+                    <select class="form-control" id="FieldMode" style="width:300px;"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var jobObj = CommonFun_Data();
+        var dfOjb = CommonFun_Data();
+        dfOjb.Fun_Data_Init({ "ID": "", "Type1": "", "Type2": "", "FieldKey": "Job", "FieldName": "", "FieldUnit": "", "FieldType": "", "FieldMode": "" });
+
+        $(function () {
+            var data;
+            eval("(data = @Html.Raw(ViewBag.Ret));");
+
+            var obj = data.obj2;
+            if (obj != null) {
+                $("#JobCode").val(obj[0].Code);
+                $("#Type2").val(obj[0].Code);
+                jobObj.Fun_Data_Init(obj);
+                jobObj.Fun_Set_Html();
+            }
+
+            CommonFun_Select_Init("FieldUnit", data.obj9);
+            CommonFun_Select_Init("FieldType", data.obj7);
+            CommonFun_Select_Init("FieldMode", data.obj8);
+
+            initHtml();
+        });
+    </script>
+
+    <script type="text/javascript">
+        var dataObj = PageListFun_Data();
+        dataObj.PageList_Count = 10;
+        dataObj.UserID = "@ViewBag.UserID";
+        dataObj.OrgCode = "@ViewBag.OrgCode";
+        dataObj.RRoleCode = "@ViewBag.RRoleCode";
+        dataObj.DRoleType = "@ViewBag.DRoleType";
+        dataObj.Fun_Loading = function () {
+            initHtml();
+        };
+        dataObj.PageList_BtnInfo.Btns = [
+            {
+                "Tag": "edit",
+                "Title": "编辑",
+                "Fun_Callback": function (obj) {
+                    return true;
+                },
+                "Fun_Click": function (obj) {
+                    var ajaxObj = CommonFun_Ajax();
+                    ajaxObj.url = "../api/B06_Job/DF_Job_GetOne";
+                    ajaxObj.data = { "para": "ID=" + obj.ID };
+                    ajaxObj.getData(function (data) {
+                        dfOjb = CommonFun_Data();
+                        dfOjb.Fun_Data_Init(data.obj1);
+                        dfOjb.Fun_Set_Html();
+                    }, function () {
+                        // Error
+                    });
+                }
+            }, {
+                "Tag": "update2",
+                "Title": "删除",
+                "Fun_Callback": function (obj) {
+                    return true;
+                },
+                "Fun_Click": function (obj) {
+                    if (!confirm("是否要删除该字段，删除后将无法恢复！")) {
+                        return false;
+                    }
+
+                    var ajaxObj = CommonFun_Ajax();
+                    ajaxObj.url = "../api/B06_Job/DF_Job_Delete";
+                    ajaxObj.data = { "para": "ID=" + obj.ID };
+                    ajaxObj.getData(function (data) {
+                        initHtml();
+                    }, function () {
+                        // Error
+                    });
+                }
+            }
+        ];
+
+        function initHtml() {
+            dataObj.Para1 = "Job";
+            dataObj.Para2 = $("#JobCode").val();
+
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/B06_Job/DF_Job_GetPageList";
+            ajaxObj.data = { "para": dataObj.PageList_Json() };
+            ajaxObj.getData(function (data) {
+                dataObj.Fun_InitData(data.obj1);
+                dataObj.Fun_InitDiv("pagelist_1");
+                dataObj.Fun_InitTable("pagelist_1_tbody");
+            }, function () {
+                // Error
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function Btn_Add() {
+            $("#DFID").val("");
+            $("#FieldKey").val("");
+            $("#FieldName").val("");
+            $("#FieldUnit").val("0");
+            $("#FieldType").val("1");
+            $("#FieldMode").val("1");
+
+            dfOjb = CommonFun_Data();
+            dfOjb.Fun_Data_Init({ "ID": "", "Type1": "", "Type2": "", "FieldKey": "Job", "FieldName": "", "FieldUnit": "", "FieldType": "", "FieldMode": "" });
+        }
+
+        function Btn_Save() {
+            dfOjb.Fun_Set_OneCheckInfo("FieldName", "字段名称", "null");
+
+            try {
+                dfOjb.Fun_Get_Html();
+                dfOjb.Fun_Check();
+            } catch (err) {
+                alert(err);
+                return false;
+            }
+
+            layer.load(2);
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/B06_Job/DF_Job_DoSave";
+            ajaxObj.data = { "para": dfOjb.Fun_Serialize_All() };
+            ajaxObj.getData(function (data) {
+                layer.closeAll("loading");
+
+                if (data.ret_status == ParaData.ret.Succes) {
+                    initHtml();
+                } else {
+                    alert("保存失败！");
+                }
+            }, function () {
+                // Error
+                layer.closeAll("loading");
+            });
+        }
+    </script>
+</body>
+</html>

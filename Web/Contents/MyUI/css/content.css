@@ -1,0 +1,9 @@
+﻿.widget-box table thead tr {
+    background-color: rgb(238,238,238);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+    .widget-box table thead tr th {
+        text-align: center;
+    }

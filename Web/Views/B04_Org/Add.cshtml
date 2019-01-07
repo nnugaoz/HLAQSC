@@ -1,0 +1,142 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <link href="~/Contents/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <script src="../../Contents/zTree_v3/js/jquery.ztree.core.min.js"></script>
+</head>
+<body>
+    <input type="hidden" id="ID" value="">
+    <input type="hidden" id="Code" value="">
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:280px;width:365px;float:left;">
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">上级编码：</div>
+                    <input type="text" style="width:250px;" class="form-control" id="PCode" readonly>
+                </div>
+                <div style="height:5px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">上级名称：</div>
+                    <input type="text" style="width:250px;" class="form-control" id="PName" readonly>
+                </div>
+                <div style="height:5px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">全称：</div>
+                    <input type="text" style="width:250px;" class="form-control" id="Title" maxlength="20">
+                </div>
+                <div style="height:5px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">简称：</div>
+                    <input type="text" style="width:250px;" class="form-control" id="STitle" maxlength="20">
+                </div>
+                <div style="height:5px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">类型：</div>
+                    <select class="form-control" id="Type" style="width:250px;"></select>
+                </div>
+            </div>
+            <div class="form-group" style="height:280px;width:300px;float:left;overflow:auto;border:1px solid #C0C0C0;">
+                <div id="tree" class="ztree">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;margin-right:30px;">
+        <div class="form-group" style="text-align:right;">
+            <button type="button" class="btn btn-primary" onclick="Do_Save();">提交</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var tree;
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick: zTreeOnClick
+            }
+        };
+
+        function zTreeOnClick(event, treeId, treeNode) {
+            $("#PCode").val(treeNode.id);
+            $("#PName").val(treeNode.name);
+        };
+    </script>
+
+    <script type="text/javascript">
+        var dataObj = CommonFun_Data();
+
+        $(function () {
+            var data;
+            eval("(data = @Html.Raw(ViewBag.Ret));");
+
+            var obj = data.obj1;
+
+            $.fn.zTree.init($("#tree"), setting, obj);
+            tree = $.fn.zTree.getZTreeObj("tree");
+            tree.expandAll(true);
+            //var node = tree.getNodeByParam("id", "001", null);
+            //tree.expandNode(node, true, false, true);
+
+            CommonFun_Select_Init("Type", data.obj9);
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Do_Save() {
+            dataObj.Fun_Data_Init({ "PCode": "", "Type": "1", "Title": "", "STitle": "", "Del": "0" });
+            dataObj.Fun_Set_OneCheckInfo("PCode", "上级", "null");
+            dataObj.Fun_Set_OneCheckInfo("Title", "全称", "null");
+            dataObj.Fun_Set_OneCheckInfo("STitle", "简称", "null");
+
+            try {
+                dataObj.Fun_Get_Html();
+                dataObj.Fun_Check();
+            } catch (err) {
+                alert(err);
+                return false;
+            }
+
+            layer.load(2);
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/B04_Org/DoSave";
+            ajaxObj.data = { "para": dataObj.Fun_Serialize_All() };
+            ajaxObj.getData(function (data) {
+                layer.closeAll("loading");
+
+                if (data.ret_status == ParaData.ret.Succes) {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                } else {
+                    alert("保存失败！");
+                }
+            }, function () {
+                // Error
+                layer.closeAll("loading");
+            });
+        }
+    </script>
+</body>
+</html>

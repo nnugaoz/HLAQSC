@@ -1,0 +1,229 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <link href="~/Contents/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <script src="../../Contents/zTree_v3/js/jquery.ztree.core.min.js"></script>
+
+    <script src="../../Scripts_Common/PageList.js"></script>
+</head>
+<body>
+    <input type="hidden" id="ID" value="" />
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:480px;width:420px;float:left;">
+                <div class="input-group">
+                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;" onclick="Btn_Search();">查询</button>
+                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border-left:1px solid #D3D3D3" onclick="Btn_Search_Clear();">重置查询</button>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">组织结构：</div>
+                    <input type="text" style="width:200px;" class="form-control" id="OrgName" readonly>
+                    <input type="hidden" id="OrgCode">
+                    <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;" onclick="Do_ShowOrHide(2);">展开/收起</button>
+                </div>
+                <div style="height:5px;">&nbsp;</div>
+                <div id="div_tree2" class="form-group" style="height:280px;width:400px;float:left;overflow:auto;border:1px solid #C0C0C0;display:none;">
+                    <div id="tree2" class="ztree">
+
+                    </div>
+                </div>
+                <div style="height:5px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">中段名称：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="PositionName1" maxlength="20">
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">采场名称：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="PositionName2" maxlength="20">
+                </div>
+            </div>
+            <div class="form-group" style="height:480px;width:760px;float:left;">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-content nopadding">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th name="i" class="c" style="width:80px;">序号</th>
+                                                <th name="OrgName" class="l">组织结构</th>
+                                                <th name="Title1" class="l">中段</th>
+                                                <th name="Title2" class="l">采场</th>
+                                                <th name="op" class="c" style="width:80px;">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pagelist_1_tbody"></tbody>
+                                    </table>
+                                    <div id="pagelist_1" style="margin-top:-20px;text-align:right;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var tree2;
+        var setting2 = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onClick: zTreeOnClick2
+            }
+        };
+
+        function zTreeOnClick2(event, treeId, treeNode) {
+            $("#OrgCode").val(treeNode.id);
+            $("#OrgName").val(treeNode.name);
+        };
+    </script>
+
+    <script type="text/javascript">
+        var dataObj = CommonFun_Data();
+
+        $(function () {
+            var data;
+            eval("(data = @Html.Raw(ViewBag.Ret));");
+
+            var obj = data.obj6;
+            $.fn.zTree.init($("#tree2"), setting2, obj);
+            tree2 = $.fn.zTree.getZTreeObj("tree2");
+            tree2.expandAll(true);
+
+            var obj = data.obj2;
+            if (obj != null) {
+                $("#ID").val(obj[0].ID);
+            }
+
+            initHtml();
+        });
+
+        function Do_ShowOrHide(i) {
+            if (i == 2) {
+                $("#div_tree1").hide();
+                $("#div_tree2").toggle();
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        var dataObj = PageListFun_Data();
+        dataObj.PageList_Count = 10;
+        dataObj.UserID = "@ViewBag.UserID";
+        dataObj.OrgCode = "@ViewBag.OrgCode";
+        dataObj.RRoleCode = "@ViewBag.RRoleCode";
+        dataObj.DRoleType = "@ViewBag.DRoleType";
+        dataObj.Fun_Loading = function () {
+            initHtml();
+        };
+        dataObj.PageList_BtnInfo.Btns = [
+            {
+                "Tag": "update1",
+                "Title": "绑定",
+                "Fun_Callback": function (obj) {
+                    if (obj.BindStatus == "0") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                "Fun_Click": function (obj) {
+                    var ajaxObj = CommonFun_Ajax();
+                    ajaxObj.url = "../api/C01_Equipment/DoUpdate_Positionr";
+                    ajaxObj.data = { "para": "ID=" + $("#ID").val() + "&PositionCode=" + obj.Code };
+                    ajaxObj.getData(function (data) {
+                        initHtml();
+                    }, function () {
+                        // Error
+                    });
+                }
+            }, {
+                "Tag": "update2",
+                "Title": "解绑",
+                "Fun_Callback": function (obj) {
+                    if (obj.BindStatus == "1") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                "Fun_Click": function (obj) {
+                    var ajaxObj = CommonFun_Ajax();
+                    ajaxObj.url = "../api/C01_Equipment/DoUpdate_Positionr";
+                    ajaxObj.data = { "para": "ID=" + $("#ID").val() + "&PositionCode=" + obj.Code };
+                    ajaxObj.getData(function (data) {
+                        initHtml();
+                    }, function () {
+                        // Error
+                    });
+                }
+            }
+        ];
+
+        function initHtml() {
+            dataObj.Para1 = $("#OrgCode").val();
+            dataObj.Para2 = $("#PositionName1").val();
+            dataObj.Para3 = $("#PositionName2").val();
+            dataObj.Para9 = $("#ID").val();
+
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/C01_Equipment/GetPageList_Position";
+            ajaxObj.data = { "para": dataObj.PageList_Json() };
+            ajaxObj.getData(function (data) {
+                dataObj.Fun_InitData(data.obj1);
+                dataObj.Fun_InitDiv("pagelist_1");
+                dataObj.Fun_InitTable("pagelist_1_tbody");
+
+                $("#RRoleCode_AfterSearch").val($("#RRoleCode").val());
+            }, function () {
+                // Error
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function Btn_Search() {
+            initHtml();
+        }
+
+        function Btn_Search_Clear() {
+            $("#OrgCode").val("");
+            $("#OrgName").val("");
+            $("#PositionName1").val("");
+            $("#PositionName2").val("");
+
+            initHtml();
+        }
+    </script>
+</body>
+</html>

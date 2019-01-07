@@ -1,0 +1,217 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../Contents/MyUI/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../Contents/MyUI/css/main.css" rel="stylesheet" />
+
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+</head>
+<body>
+    <!--Header-part-->
+    <div id="header">
+        <h1><a href="javascript:void(0);">红岭安全生产系统</a></h1>
+    </div>
+    <!--close-Header-part-->
+    <!--top-Header-menu-->
+    <div id="user-nav" class="myNavbar myNavbar-inverse">
+        <ul class="myNav">
+            <li class="dropdown" id="profile-messages">
+                <a title="" href="javascript:void(0);" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle" onclick="Fun_ShowMenu()">
+                    <i class="icon icon-user"></i>&nbsp;
+                    <span class="text">欢迎你，@ViewBag.UserName</span>&nbsp;
+                    <b class="caret"></b>
+                </a>
+                <ul class="myDropdown-menu">
+                    <li><a href="javascript:void(0);" onclick="Fun_EditPassword();"><i class="icon-user"></i> 修改密码</a></li>
+                </ul>
+            </li>
+            <li class=""><a href="javascript:void(0);" onclick="Fun_LoginOut();"><i class="icon icon-share-alt"></i> <span class="text">&nbsp;退出系统</span></a></li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+    <!--sidebar-menu-->
+    <div id="sidebar" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden;">
+        <ul></ul>
+    </div>
+    <!--sidebar-menu-->
+    <!--main-container-part-->
+    <div id="content">
+        <!--breadcrumbs-->
+        <div id="content-header">
+            <div id="breadcrumb"></div>
+        </div>
+        <!--End-breadcrumbs-->
+        <div id="content-body" style="overflow:auto;">
+            @RenderBody()
+        </div>
+    </div>
+    <!--end-main-container-part-->
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <script type="text/javascript">
+        var menus = {
+            "data": [],
+            "CurrPage": "@ViewBag.CurrPage",
+            "fun_dataInit": function (pages) {
+                for (var i = 0 ; i < pages.length; i++) {
+                    var obj = pages[i];
+                    if (obj.Code.length == 3) {
+                        this.data.push({
+                            "Code": obj.Code,
+                            "Title": obj.Title,
+                            "Children": []
+                        });
+                    }
+                    if (obj.Code.length == 6) {
+                        for (var j = 0 ; j < this.data.length; j++) {
+                            if (this.data[j].Code == obj.Code.substring(0, 3)) {
+                                this.data[j].Children.push({
+                                    "Code": obj.Code,
+                                    "Title": obj.Title,
+                                    "Url": obj.Url
+                                });
+                            }
+                        }
+                    }
+                }
+            },
+            "fun_htmlInit": function () {
+                var html = "";
+                for (var i = 0 ; i < this.data.length; i++) {
+                    var obj = this.data[i];
+                    html += "<li class='submenu{class}'>";
+                    html += "<a href='javascript:void(0);'><i class='icon icon-table'></i><span>" + obj.Title + "</span></a>";
+                    html += "<ul>";
+
+                    if (obj.Children.length == 0) {
+                        html = html.replace("{class}", "");
+                    }
+
+                    for (var j = 0 ; j < obj.Children.length; j++) {
+                        var cObj = obj.Children[j];
+
+                        if (j == 0) {
+                            if (obj.Code == this.CurrPage.substring(0, 3)) {
+                                html = html.replace("{class}", " open'");
+                            } else {
+                                html = html.replace("{class}", "");
+                            }
+                        }
+
+                        if (cObj.Code == this.CurrPage) {
+                            html += "<li class='active'><a class='menu_a' onclick='menus.fun_click(\"" + cObj.Code + "\", \"" + cObj.Url + "\");return false;'><i class='icon icon-caret-right'></i>" + cObj.Title + "</a></li>";
+                        } else {
+                            html += "<li><a class='menu_a' onclick='menus.fun_click(\"" + cObj.Code + "\", \"" + cObj.Url + "\");return false;'><i class='icon icon-caret-right'></i>" + cObj.Title + "</a></li>";
+                        }
+                    }
+                    html += "</ul>";
+                    html += "</li>";
+                }
+                $("#sidebar ul").html(html);
+            },
+            "fun_click": function (code, url) {
+                layer.load(2);
+                CommonFun_Href(url + "?CurrPage=" + code);
+            }
+        };
+
+        var pages = eval("@Html.Raw(@ViewBag.MyPages)");
+        menus.fun_dataInit(pages);
+        menus.fun_htmlInit();
+    </script>
+
+    <script type="text/javascript">
+        //初始化相关元素高度
+        function init() {
+            $("body").height($(window).height() - 80);
+            $("#content-body").height($(window).height() - 90);
+            $("#sidebar").height($(window).height() - 50);
+        }
+
+        $(function () {
+            $(".myNav .hasmenu").hover(function () {
+                $(this).children("a").addClass("current");
+                $(this).find(".submenu").show();
+            }, function () {
+                $(this).children("a").removeClass("current");
+                $(this).find(".submenu").hide();
+            });
+
+            $('.submenu > a').click(function (e) {
+                e.preventDefault();
+                var submenu = $(this).siblings('ul');
+                var li = $(this).parents('li');
+                var submenus = $('#sidebar li.submenu ul');
+                var submenus_parents = $('#sidebar li.submenu');
+                if (li.hasClass('open')) {
+                    if (($(window).width() > 768) || ($(window).width() < 479)) {
+                        submenu.slideUp();
+                    } else {
+                        submenu.fadeOut(250);
+                    }
+                    li.removeClass('open');
+                } else {
+                    if (($(window).width() > 768) || ($(window).width() < 479)) {
+                        submenus.slideUp();
+                        submenu.slideDown();
+                    } else {
+                        submenus.fadeOut(250);
+                        submenu.fadeIn(250);
+                    }
+                    submenus_parents.removeClass('open');
+                    li.addClass('open');
+                }
+            });
+
+            var ul = $('#sidebar > ul');
+
+            $('#sidebar > a').click(function (e) {
+                e.preventDefault();
+                var sidebar = $('#sidebar');
+                if (sidebar.hasClass('open')) {
+                    sidebar.removeClass('open');
+                    ul.slideUp(250);
+                } else {
+                    sidebar.addClass('open');
+                    ul.slideDown(250);
+                }
+            });
+
+            init();
+            $(window).resize(function () {
+                init();
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Fun_ShowMenu() {
+            $("ul.myDropdown-menu").toggle();
+        }
+
+        // 修改密码
+        function Fun_EditPassword() {
+            CommonFun_OpenLayer({ "Type": "705*550", "Title": "重置密码", "Url": "/A02_HomePage/EditPassword", "Fun_End": function () { } });
+        }
+
+        // 退出
+        function Fun_LoginOut() {
+            CommonFun_Href("/A02_HomePage/LoginOut");
+        }
+    </script>
+</body>
+</html>

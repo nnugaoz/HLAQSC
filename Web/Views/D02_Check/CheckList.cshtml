@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "ImportCheck";
+    Layout = "~/Views/A02_HomePage/_MB.cshtml";
+}
+<script language="javascript" type="text/javascript" src="~/Contents/My97DatePicker/WdatePicker.js"></script>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <form class="form-inline" id="formUploadCheck" action="/D02_Check/Upload?CurrPage=@ViewBag.CurrPage" method="post" enctype="multipart/form-data" style="margin-top:10px;">
+        <div class="form-group">
+            <label class="sr-only" for="txtYM"></label>
+            <div class="input-group">
+                <label for="txtYM" class="input-group-addon" style="color:red;">验收年月</label>
+                <input type="text" id="txtYM" name="txtYM" class="form-control" onclick="WdatePicker({ dateFmt: 'yyyy/MM' });" readonly="readonly" />
+                <div class="input-group-addon">
+                    <img onclick="WdatePicker({ el: 'txtYM', dateFmt: 'yyyy/MM' })" src="~/Contents/My97DatePicker/skin/datePicker.gif" style="height:20px;">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="txtSelectedFileName"></label>
+            <div class="input-group">
+                <label for="txtSelectedFileName" class="input-group-addon" style="color:red;">验收文件</label>
+                <input type="text" class="form-control" id="txtSelectedFileName" style="width:300px" readonly="readonly">
+            </div>
+            <input type="button" class="btn btn-primary" id="btnBrowser" value="浏览..." onclick="btnBrowser_Click();">
+            <input type="button" class="btn btn-primary" id="btnImport" value="导入" onclick="btnImport_Click();">
+            <input type="button" class="btn btn-primary" id="btnDownloadExcelTemplate" value="验收模板下载" onclick="btnDownloadExcelTemplate_Click();">
+        </div>
+        <div class="form-group">
+            <input type="file" accept=".xlsx" name="fileCheck" id="fileCheck" style="visibility:hidden;" onchange="fileCheck_Change();" />
+        </div>
+    </form>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="form-inline" style="margin-top:20px;">
+        <div class="form-group">
+            <label class="sr-only" for="Para1"></label>
+            <div class="input-group">
+                <label for="Para1" class="input-group-addon">验收年月</label>
+                <input type="text" class="form-control" id="Para1" onclick="WdatePicker({ dateFmt: 'yyyy/MM' });" readonly="readonly">
+                <div class="input-group-addon">
+                    <img onclick="WdatePicker({ el: 'Para1', dateFmt: 'yyyy/MM' })" src="~/Contents/My97DatePicker/skin/datePicker.gif" style="height:20px;">
+                </div>
+            </div>
+        </div>
+
+        <input type="button" class="btn btn-primary" value="检索" id="btnSearch" onclick="btnSearch_Click();" />
+
+    </div>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <table class="table table-bordered table-striped" style="margin-top:10px;">
+        <thead>
+            <tr>
+                <th name="i" class="c" style="width:50px;">序号</th>
+                <th name="YM" class="l">验收年月</th>
+                <th name="FileName" class="l">验收文件名</th>
+                <th name="UploadTime" class="l">导入时间</th>
+                <th name="op" class="c" style="width:90px;">操作</th>
+            </tr>
+        </thead>
+        <tbody id="CheckListBody"></tbody>
+    </table>
+    <div id="CheckPagination" style="margin-top:-20px;text-align:right;">
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts_Common/PageList.js"></script>
+<script type="text/javascript">
+
+    var dataObj = PageListFun_Data();
+    dataObj.UserID = "@ViewBag.UserID";
+    dataObj.OrgCode = "@ViewBag.OrgCode";
+    dataObj.RRoleCode = "@ViewBag.RRoleCode";
+    dataObj.DRoleType = "@ViewBag.DRoleType";
+    dataObj.Fun_Loading = function () {
+        initHtml();
+    };
+    dataObj.PageList_BtnInfo.Btns = [
+        {
+            "Tag": "download",
+            "Title": "下载",
+            "Fun_Callback": function (obj) {
+                return true;
+            },
+            "Fun_Click": function (obj) {
+                window.location.href = "/D02_Check/Download?pFileName=" + obj.FileName + "&pFileNameS=" + obj.FileNameS;
+            }
+        }
+                ,
+                {
+                    "Tag": "detail",
+                    "Title": "详细",
+                    "Fun_Callback": function (obj) {
+                        return true;
+                    },
+                    "Fun_Click": function (obj) {
+                        CommonFun_OpenLayer({ "Data": { "pID": obj.ID }, "Type": "800*600", "Title": obj.YM + " - 验收详情", "Url": "/D02_Check/Detail", "Fun_End": function () { } });
+                    }
+                }
+    ];
+
+    function initHtml() {
+        var ajaxObj = CommonFun_Ajax();
+        ajaxObj.url = "../api/D02_Check/CheckList";
+        ajaxObj.data = { "para": dataObj.PageList_Json() };
+        ajaxObj.getData(function (data) {
+            dataObj.Fun_InitData(data.obj1);
+            dataObj.Fun_InitDiv("CheckPagination");
+            dataObj.Fun_InitTable("CheckListBody");
+        }, function () {
+            // Error
+        });
+    }
+
+
+    $(function () {
+        Crumbs.Data = [{ "Name": "验收导入", "Url": "/D02_Check/CheckList?r=" + Math.random() + "&CurrPage=" + CurrPage }];
+        Crumbs.Fun_SetCrumbs();
+        initHtml();
+    });
+
+    function btnBrowser_Click() {
+        $("#fileCheck").click();
+    }
+
+    function fileCheck_Change() {
+        if ($("#fileCheck")[0].files.length > 0) {
+            $("#txtSelectedFileName").val($("#fileCheck")[0].files[0].name);
+        }
+    }
+
+    function btnImport_Click() {
+        if ($("#txtYM").val() == null || $("#txtYM").val() == "") {
+            alert("请输入计划年月！");
+            return;
+        }
+        if ($("#txtSelectedFileName").val() == null || $("#txtSelectedFileName").val() == "") {
+            alert("请选择验收文件！");
+            return;
+        }
+        //判断年月对应的计划是否存在
+        var lAjaxObj = CommonFun_Ajax();
+        lAjaxObj.url = "../Api/D02_Check/CheckCheckExists";
+        lAjaxObj.data = { "p_YM": $("#txtYM").val() };
+        lAjaxObj.getData(
+            function (data) {
+                if (data.ret_status == "1") {
+                    if (confirm($("#txtYM").val() + "验收已经存在，是否覆盖")) {
+                        layer.load(2);
+                        $("#formUploadCheck").submit();
+                    }
+                }
+                else if (data.ret_status == "2") {
+                    layer.load(2);
+                    $("#formUploadCheck").submit();
+                }
+            },
+            function () {
+
+            })
+    }
+
+    function btnSearch_Click() {
+        PageInit();
+    }
+
+    function btnDownloadExcelTemplate_Click() {
+        window.location.href = "/D01_Plan/DownloadTemplate?pFileType=CHECK";
+    }
+</script>

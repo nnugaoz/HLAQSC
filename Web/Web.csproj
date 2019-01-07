@@ -1,0 +1,1014 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A2EDD2E5-CDAC-4349-946E-ADD77BC66EC6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web</RootNamespace>
+    <AssemblyName>Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.4.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.4.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.4.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.4.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.4.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MyTool">
+      <HintPath>..\MyTool\bin\Debug\MyTool.dll</HintPath>
+    </Reference>
+    <Reference Include="QRCoder, Version=1.3.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.5\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AutoFiles\T1_DataDirc.js" />
+    <Content Include="AutoFiles\T1_Page.js" />
+    <Content Include="AutoFiles\T1_User.js" />
+    <Content Include="AutoFiles\T1_User_Admin.js" />
+    <Content Include="AutoFiles\T1_User_Excel.js" />
+    <Content Include="AutoFiles\T2_DRole.js" />
+    <Content Include="AutoFiles\T2_Org.js" />
+    <Content Include="AutoFiles\T2_Position.js" />
+    <Content Include="AutoFiles\T2_Position_Org.js" />
+    <Content Include="AutoFiles\T2_PRole.js" />
+    <Content Include="AutoFiles\T2_PRole_Detail.js" />
+    <Content Include="AutoFiles\T2_RRole.js" />
+    <Content Include="AutoFiles\T2_RRole_OperLog.js" />
+    <Content Include="AutoFiles\T2_RRole_User.js" />
+    <Content Include="AutoFiles\T3_Dynamic_Field.js" />
+    <Content Include="AutoFiles\T3_Equipment.js" />
+    <Content Include="AutoFiles\T3_EquipmentType.js" />
+    <Content Include="AutoFiles\T3_Equipment_Position.js" />
+    <Content Include="AutoFiles\T3_Job.js" />
+    <Content Include="AutoFiles\T4_Config.js" />
+    <Content Include="AutoFiles\T4_MP.js" />
+    <Content Include="AutoFiles\T4_MP_Detail_1.js" />
+    <Content Include="AutoFiles\T4_MP_Detail_2.js" />
+    <Content Include="AutoFiles\T5_Equipment_WorkRecord.js" />
+    <Content Include="AutoFiles\T5_Equipment_WorkRecord_Field.js" />
+    <Content Include="AutoFiles\T5_MessageBoard.js" />
+    <Content Include="AutoFiles\T5_WorkRecord.js" />
+    <Content Include="AutoFiles\T5_WorkRecord_Detail.js" />
+    <Content Include="AutoFiles\T5_WorkRecord_Detail_Field.js" />
+    <Content Include="AutoFiles\T6_Check.js" />
+    <Content Include="AutoFiles\T6_Check_B1_ZongBiao.js" />
+    <Content Include="AutoFiles\T6_Check_B3_CaiJue.js" />
+    <Content Include="AutoFiles\T6_Check_B4_JueJin.js" />
+    <Content Include="AutoFiles\T6_Check_B6_CaiKuang.js" />
+    <Content Include="AutoFiles\T6_Check_B7_ChuKuang.js" />
+    <Content Include="AutoFiles\T6_Plan.js" />
+    <Content Include="AutoFiles\T6_Plan_B1_ZongBiao.js" />
+    <Content Include="AutoFiles\T6_Plan_B3_CaiJue.js" />
+    <Content Include="AutoFiles\T6_Plan_B4_JueJin.js" />
+    <Content Include="AutoFiles\T6_Plan_B6_CaiKuang.js" />
+    <Content Include="AutoFiles\T6_Plan_B7_ChuKuang.js" />
+    <Content Include="AutoFiles\T7_Sample.js" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap-theme.css" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap.css" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap.min.css" />
+    <Content Include="Contents\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Contents\bootstrap-3.3.7\js\bootstrap.js" />
+    <Content Include="Contents\bootstrap-3.3.7\js\bootstrap.min.js" />
+    <Content Include="Contents\bootstrap-3.3.7\js\npm.js" />
+    <Content Include="Contents\layer\layer.js" />
+    <Content Include="Contents\layer\mobile\layer.js" />
+    <Content Include="Contents\layer\mobile\need\layer.css" />
+    <Content Include="Contents\layer\theme\default\icon-ext.png" />
+    <Content Include="Contents\layer\theme\default\icon.png" />
+    <Content Include="Contents\layer\theme\default\layer.css" />
+    <Content Include="Contents\layer\theme\default\loading-0.gif" />
+    <Content Include="Contents\layer\theme\default\loading-1.gif" />
+    <Content Include="Contents\layer\theme\default\loading-2.gif" />
+    <Content Include="Contents\My97DatePicker\calendar.js" />
+    <Content Include="Contents\My97DatePicker\config.js" />
+    <Content Include="Contents\My97DatePicker\lang\en.js" />
+    <Content Include="Contents\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Contents\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Contents\My97DatePicker\My97DatePicker.htm" />
+    <Content Include="Contents\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Contents\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Contents\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Contents\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Contents\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Contents\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Contents\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Contents\My97DatePicker\WdatePicker.js" />
+    <Content Include="Contents\MyUI\css\content.css" />
+    <Content Include="Contents\MyUI\css\main.css" />
+    <Content Include="Contents\MyUI\font-awesome\css\font-awesome.css" />
+    <Content Include="Contents\MyUI\img\breadcrumb.png" />
+    <Content Include="Contents\Scripts\jquery-1.11.3.min.js" />
+    <Content Include="Contents\UI\css\bootstrap-responsive.min.css" />
+    <Content Include="Contents\UI\css\bootstrap-wysihtml5.css" />
+    <Content Include="Contents\UI\css\bootstrap.min.css" />
+    <Content Include="Contents\UI\css\colorpicker.css" />
+    <Content Include="Contents\UI\css\datepicker.css" />
+    <Content Include="Contents\UI\css\fullcalendar.css" />
+    <Content Include="Contents\UI\css\jquery.gritter.css" />
+    <Content Include="Contents\UI\css\layout.css" />
+    <Content Include="Contents\UI\css\matrix-login.css" />
+    <Content Include="Contents\UI\css\matrix-media.css" />
+    <Content Include="Contents\UI\css\matrix-style.css" />
+    <Content Include="Contents\UI\css\matrix-style2.css" />
+    <Content Include="Contents\UI\css\reset.css" />
+    <Content Include="Contents\UI\css\select2.css" />
+    <Content Include="Contents\UI\css\style.css" />
+    <Content Include="Contents\UI\css\uniform.css" />
+    <Content Include="Contents\UI\font-awesome\css\font-awesome.css" />
+    <Content Include="Contents\UI\images\backgrounds\calActiveBg.html" />
+    <Content Include="Contents\UI\images\gallery\imgbox3.html" />
+    <Content Include="Contents\UI\img\alpha.html" />
+    <Content Include="Contents\UI\img\backgrounds\calActiveBg.html" />
+    <Content Include="Contents\UI\img\breadcrumb.png" />
+    <Content Include="Contents\UI\img\demo\av1.jpg" />
+    <Content Include="Contents\UI\img\demo\av2.jpg" />
+    <Content Include="Contents\UI\img\demo\av3.jpg" />
+    <Content Include="Contents\UI\img\demo\av4.jpg" />
+    <Content Include="Contents\UI\img\demo\av5.jpg" />
+    <Content Include="Contents\UI\img\demo\demo-image1.jpg" />
+    <Content Include="Contents\UI\img\demo\demo-image2.jpg" />
+    <Content Include="Contents\UI\img\demo\demo-image3.jpg" />
+    <Content Include="Contents\UI\img\demo\envelope.png" />
+    <Content Include="Contents\UI\img\gallery\imgbox1.jpg" />
+    <Content Include="Contents\UI\img\gallery\imgbox2.jpg" />
+    <Content Include="Contents\UI\img\gallery\imgbox3.jpg" />
+    <Content Include="Contents\UI\img\gallery\imgbox4.jpg" />
+    <Content Include="Contents\UI\img\gallery\imgbox5.jpg" />
+    <Content Include="Contents\UI\img\glyphicons-halflings-white.png" />
+    <Content Include="Contents\UI\img\glyphicons-halflings.html" />
+    <Content Include="Contents\UI\img\gritter.png" />
+    <Content Include="Contents\UI\img\hue.png" />
+    <Content Include="Contents\UI\img\larrow.png" />
+    <Content Include="Contents\UI\img\line.png" />
+    <Content Include="Contents\UI\img\logo.png" />
+    <Content Include="Contents\UI\img\menu-active-white.png" />
+    <Content Include="Contents\UI\img\menu-active.png" />
+    <Content Include="Contents\UI\img\rarrow.png" />
+    <Content Include="Contents\UI\img\saturation.png" />
+    <Content Include="Contents\UI\img\select2.png" />
+    <Content Include="Contents\UI\img\spinner.gif" />
+    <Content Include="Contents\UI\img\sprite.png" />
+    <Content Include="Contents\UI\js\bootstrap-colorpicker.js" />
+    <Content Include="Contents\UI\js\bootstrap-datepicker.js" />
+    <Content Include="Contents\UI\js\bootstrap-wysihtml5.js" />
+    <Content Include="Contents\UI\js\bootstrap.min.js" />
+    <Content Include="Contents\UI\js\excanvas.min.js" />
+    <Content Include="Contents\UI\js\fullcalendar.min.js" />
+    <Content Include="Contents\UI\js\jquery.dataTables.min.js" />
+    <Content Include="Contents\UI\js\jquery.flot.min.js" />
+    <Content Include="Contents\UI\js\jquery.flot.pie.min.js" />
+    <Content Include="Contents\UI\js\jquery.flot.resize.min.js" />
+    <Content Include="Contents\UI\js\jquery.gritter.min.js" />
+    <Content Include="Contents\UI\js\jquery.min.js" />
+    <Content Include="Contents\UI\js\jquery.peity.min.js" />
+    <Content Include="Contents\UI\js\jquery.toggle.buttons.html" />
+    <Content Include="Contents\UI\js\jquery.ui.custom.js" />
+    <Content Include="Contents\UI\js\jquery.uniform.js" />
+    <Content Include="Contents\UI\js\jquery.validate.js" />
+    <Content Include="Contents\UI\js\jquery.wizard.js" />
+    <Content Include="Contents\UI\js\maruti.html" />
+    <Content Include="Contents\UI\js\masked.js" />
+    <Content Include="Contents\UI\js\matrix.calendar.js" />
+    <Content Include="Contents\UI\js\matrix.charts.js" />
+    <Content Include="Contents\UI\js\matrix.chat.js" />
+    <Content Include="Contents\UI\js\matrix.dashboard.js" />
+    <Content Include="Contents\UI\js\matrix.form_common.js" />
+    <Content Include="Contents\UI\js\matrix.form_validation.js" />
+    <Content Include="Contents\UI\js\matrix.interface.js" />
+    <Content Include="Contents\UI\js\matrix.js" />
+    <Content Include="Contents\UI\js\matrix.login.js" />
+    <Content Include="Contents\UI\js\matrix.popover.js" />
+    <Content Include="Contents\UI\js\matrix.tables.js" />
+    <Content Include="Contents\UI\js\matrix.wizard.js" />
+    <Content Include="Contents\UI\js\nicescroll\jquery.min.js" />
+    <Content Include="Contents\UI\js\nicescroll\jquery.nicescroll.min.js" />
+    <Content Include="Contents\UI\js\nicescroll\zoomico.png" />
+    <Content Include="Contents\UI\js\select2.min.js" />
+    <Content Include="Contents\UI\js\wysihtml5-0.3.0.js" />
+    <Content Include="Contents\zTree_v3\api\apiCss\api.js" />
+    <Content Include="Contents\zTree_v3\api\apiCss\common.css" />
+    <Content Include="Contents\zTree_v3\api\apiCss\common_ie6.css" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\apiMenu.gif" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\apiMenu.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\background.jpg" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\chinese.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\close.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\contact-bg.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\english.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\header-bg.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\lightbulb.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\overlay_arrow.gif" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\overlay_arrow.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\overlay_bg.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\overlay_close_IE6.gif" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\zTreeStandard.gif" />
+    <Content Include="Contents\zTree_v3\api\apiCss\img\zTreeStandard.png" />
+    <Content Include="Contents\zTree_v3\api\apiCss\jquery-1.6.2.min.js" />
+    <Content Include="Contents\zTree_v3\api\apiCss\jquery.ztree.core.js" />
+    <Content Include="Contents\zTree_v3\api\apiCss\zTreeStyleForApi.css" />
+    <Content Include="Contents\zTree_v3\api\API_cn.html" />
+    <Content Include="Contents\zTree_v3\api\API_en.html" />
+    <Content Include="Contents\zTree_v3\api\cn\fn.zTree.destroy.html" />
+    <Content Include="Contents\zTree_v3\api\cn\fn.zTree.getZTreeObj.html" />
+    <Content Include="Contents\zTree_v3\api\cn\fn.zTree.init.html" />
+    <Content Include="Contents\zTree_v3\api\cn\fn.zTree._z.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.autoParam.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.contentType.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.dataFilter.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.dataType.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.enable.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.headers.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.otherParam.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.type.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.url.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.async.xhrFields.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeAsync.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeCheck.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeClick.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeCollapse.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeDblClick.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeDrag.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeDragOpen.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeDrop.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeEditName.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeExpand.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeMouseDown.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeMouseUp.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeRemove.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeRename.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.beforeRightClick.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onAsyncError.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onAsyncSuccess.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onCheck.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onClick.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onCollapse.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onDblClick.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onDrag.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onDragMove.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onDrop.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onExpand.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onMouseDown.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onMouseUp.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onNodeCreated.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onRemove.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onRename.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.callback.onRightClick.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.check.autoCheckTrigger.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.check.chkboxType.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.check.chkDisabledInherit.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.check.chkStyle.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.check.enable.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.check.nocheckInherit.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.check.radioType.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.keep.leaf.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.keep.parent.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.key.checked.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.key.children.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.key.isHidden.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.key.isParent.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.key.name.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.key.title.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.key.url.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.simpleData.enable.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.simpleData.idKey.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.simpleData.pIdKey.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.data.simpleData.rootPId.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.autoExpandTrigger.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.autoOpenTime.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.borderMax.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.borderMin.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.inner.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.isCopy.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.isMove.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.maxShowNodeNum.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.minMoveSize.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.next.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.drag.prev.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.editNameSelectAll.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.enable.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.removeTitle.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.renameTitle.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.showRemoveBtn.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.edit.showRenameBtn.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.treeId.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.treeObj.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.addDiyDom.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.addHoverDom.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.autoCancelSelected.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.dblClickExpand.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.expandSpeed.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.fontCss.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.nameIsHTML.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.removeHoverDom.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.selectedMulti.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.showIcon.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.showLine.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.showTitle.html" />
+    <Content Include="Contents\zTree_v3\api\cn\setting.view.txtSelectedEnable.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.checked.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.checkedOld.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.check_Child_State.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.check_Focus.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.children.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.chkDisabled.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.click.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.diy.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.editNameFlag.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.getCheckStatus.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.getIndex.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.getNextNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.getParentNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.getPath.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.getPreNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.halfCheck.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.icon.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.iconClose.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.iconOpen.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.iconSkin.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.isAjaxing.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.isFirstNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.isHidden.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.isHover.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.isLastNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.isParent.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.level.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.name.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.nocheck.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.open.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.parentTId.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.target.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.tId.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.url.html" />
+    <Content Include="Contents\zTree_v3\api\cn\treeNode.zAsync.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.addNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.cancelEditName.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.cancelSelectedNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.checkAllNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.checkNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.copyNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.destroy.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.editName.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.expandAll.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.expandNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getChangeCheckedNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getCheckedNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getNodeByParam.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getNodeByTId.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getNodeIndex.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getNodesByFilter.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getNodesByParam.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getNodesByParamFuzzy.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.getSelectedNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.hideNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.hideNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.moveNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.reAsyncChildNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.reAsyncChildNodesPromise.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.refresh.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.removeChildNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.removeNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.selectNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.setChkDisabled.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.setEditable.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.setting.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.showNode.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.showNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.transformToArray.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.transformTozTreeNodes.html" />
+    <Content Include="Contents\zTree_v3\api\cn\zTreeObj.updateNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\fn.zTree.destroy.html" />
+    <Content Include="Contents\zTree_v3\api\en\fn.zTree.getZTreeObj.html" />
+    <Content Include="Contents\zTree_v3\api\en\fn.zTree.init.html" />
+    <Content Include="Contents\zTree_v3\api\en\fn.zTree._z.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.autoParam.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.contentType.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.dataFilter.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.dataType.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.enable.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.headers.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.otherParam.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.type.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.url.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.async.xhrFields.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeAsync.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeCheck.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeClick.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeCollapse.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeDblClick.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeDrag.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeDragOpen.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeDrop.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeEditName.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeExpand.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeMouseDown.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeMouseUp.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeRemove.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeRename.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.beforeRightClick.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onAsyncError.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onAsyncSuccess.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onCheck.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onClick.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onCollapse.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onDblClick.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onDrag.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onDragMove.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onDrop.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onExpand.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onMouseDown.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onMouseUp.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onNodeCreated.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onRemove.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onRename.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.callback.onRightClick.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.check.autoCheckTrigger.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.check.chkboxType.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.check.chkDisabledInherit.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.check.chkStyle.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.check.enable.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.check.nocheckInherit.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.check.radioType.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.keep.leaf.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.keep.parent.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.key.checked.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.key.children.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.key.isHidden.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.key.isParent.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.key.name.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.key.title.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.key.url.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.simpleData.enable.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.simpleData.idKey.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.simpleData.pIdKey.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.data.simpleData.rootPId.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.autoExpandTrigger.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.autoOpenTime.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.borderMax.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.borderMin.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.inner.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.isCopy.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.isMove.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.maxShowNodeNum.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.minMoveSize.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.next.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.drag.prev.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.editNameSelectAll.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.enable.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.removeTitle.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.renameTitle.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.showRemoveBtn.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.edit.showRenameBtn.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.treeId.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.treeObj.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.addDiyDom.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.addHoverDom.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.autoCancelSelected.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.dblClickExpand.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.expandSpeed.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.fontCss.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.nameIsHTML.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.removeHoverDom.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.selectedMulti.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.showIcon.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.showLine.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.showTitle.html" />
+    <Content Include="Contents\zTree_v3\api\en\setting.view.txtSelectedEnable.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.checked.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.checkedOld.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.check_Child_State.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.check_Focus.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.children.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.chkDisabled.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.click.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.diy.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.editNameFlag.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.getCheckStatus.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.getIndex.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.getNextNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.getParentNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.getPath.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.getPreNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.halfCheck.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.icon.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.iconClose.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.iconOpen.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.iconSkin.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.isAjaxing.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.isFirstNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.isHidden.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.isHover.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.isLastNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.isParent.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.level.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.name.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.nocheck.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.open.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.parentTId.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.target.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.tId.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.url.html" />
+    <Content Include="Contents\zTree_v3\api\en\treeNode.zAsync.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.addNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.cancelEditName.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.cancelSelectedNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.checkAllNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.checkNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.copyNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.destroy.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.editName.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.expandAll.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.expandNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getChangeCheckedNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getCheckedNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getNodeByParam.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getNodeByTId.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getNodeIndex.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getNodesByFilter.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getNodesByParam.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getNodesByParamFuzzy.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.getSelectedNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.hideNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.hideNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.moveNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.reAsyncChildNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.reAsyncChildNodesPromise.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.refresh.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.removeChildNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.removeNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.selectNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.setChkDisabled.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.setEditable.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.setting.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.showNode.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.showNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.transformToArray.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.transformTozTreeNodes.html" />
+    <Content Include="Contents\zTree_v3\api\en\zTreeObj.updateNode.html" />
+    <Content Include="Contents\zTree_v3\css\awesomeStyle\awesome.css" />
+    <Content Include="Contents\zTree_v3\css\awesomeStyle\img\loading.gif" />
+    <Content Include="Contents\zTree_v3\css\demo.css" />
+    <Content Include="Contents\zTree_v3\css\metroStyle\img\line_conn.png" />
+    <Content Include="Contents\zTree_v3\css\metroStyle\img\loading.gif" />
+    <Content Include="Contents\zTree_v3\css\metroStyle\img\metro.gif" />
+    <Content Include="Contents\zTree_v3\css\metroStyle\img\metro.png" />
+    <Content Include="Contents\zTree_v3\css\metroStyle\metroStyle.css" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\2.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\3.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\4.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\5.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\6.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\7.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\8.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\diy\9.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\loading.gif" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Contents\zTree_v3\css\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Contents\zTree_v3\js\jquery-1.4.4.min.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.all.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.all.min.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.core.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.core.min.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.excheck.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.excheck.min.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.exedit.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.exedit.min.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.exhide.js" />
+    <Content Include="Contents\zTree_v3\js\jquery.ztree.exhide.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts_Common\Common.js" />
+    <Content Include="Scripts_Common\PageList.js" />
+    <Content Include="Scripts_Common\ParaData.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\A01_LoginController.cs" />
+    <Compile Include="Api\A02_HomePageController.cs" />
+    <Compile Include="Api\B01_PRoleController.cs" />
+    <Compile Include="Api\B02_DRoleController.cs" />
+    <Compile Include="Api\B03_RRoleController.cs" />
+    <Compile Include="Api\B04_OrgController.cs" />
+    <Compile Include="Api\B05_PositionController.cs" />
+    <Compile Include="Api\B06_JobController.cs" />
+    <Compile Include="Api\B10_UserController.cs" />
+    <Compile Include="Api\C01_EquipmentController.cs" />
+    <Compile Include="Api\C02_EquipmentTypeController.cs" />
+    <Compile Include="Api\C03_EquiDataEntryController.cs" />
+    <Compile Include="Api\C04_EquiDataController.cs" />
+    <Compile Include="Api\C11_MineDataEntryController.cs" />
+    <Compile Include="Api\C12_MineDataController.cs" />
+    <Compile Include="Api\C21_RManageController.cs" />
+    <Compile Include="Api\C22_OperLogController.cs" />
+    <Compile Include="Api\C91_MessageBoardController.cs" />
+    <Compile Include="Api\D01_PlanController.cs" />
+    <Compile Include="Api\D02_CheckController.cs" />
+    <Compile Include="Api\E01_SampleController.cs" />
+    <Compile Include="Api\Z01_LoginController.cs" />
+    <Compile Include="Api\Z02_BatchController.cs" />
+    <Compile Include="Api\Z03_ZDController.cs" />
+    <Compile Include="Api\Z04_CCController.cs" />
+    <Compile Include="Api\Z05_ZYMController.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AutoFiles\T1_DataDirc.cs" />
+    <Compile Include="AutoFiles\T1_Page.cs" />
+    <Compile Include="AutoFiles\T1_User_Excel.cs" />
+    <Compile Include="AutoFiles\T1_User.cs" />
+    <Compile Include="AutoFiles\T1_User_Admin.cs" />
+    <Compile Include="AutoFiles\T2_DRole.cs" />
+    <Compile Include="AutoFiles\T2_Org.cs" />
+    <Compile Include="AutoFiles\T2_Position.cs" />
+    <Compile Include="AutoFiles\T2_Position_Org.cs" />
+    <Compile Include="AutoFiles\T2_PRole.cs" />
+    <Compile Include="AutoFiles\T2_PRole_Detail.cs" />
+    <Compile Include="AutoFiles\T2_RRole.cs" />
+    <Compile Include="AutoFiles\T2_RRole_OperLog.cs" />
+    <Compile Include="AutoFiles\T2_RRole_User.cs" />
+    <Compile Include="AutoFiles\T3_Dynamic_Field.cs" />
+    <Compile Include="AutoFiles\T3_Equipment.cs" />
+    <Compile Include="AutoFiles\T3_EquipmentType.cs" />
+    <Compile Include="AutoFiles\T3_Equipment_Position.cs" />
+    <Compile Include="AutoFiles\T3_Job.cs" />
+    <Compile Include="AutoFiles\T4_Config.cs" />
+    <Compile Include="AutoFiles\T4_MP.cs" />
+    <Compile Include="AutoFiles\T4_MP_Detail_1.cs" />
+    <Compile Include="AutoFiles\T4_MP_Detail_2.cs" />
+    <Compile Include="AutoFiles\T5_Equipment_WorkRecord.cs" />
+    <Compile Include="AutoFiles\T5_Equipment_WorkRecord_Field.cs" />
+    <Compile Include="AutoFiles\T5_MessageBoard.cs" />
+    <Compile Include="AutoFiles\T5_WorkRecord.cs" />
+    <Compile Include="AutoFiles\T5_WorkRecord_Detail.cs" />
+    <Compile Include="AutoFiles\T5_WorkRecord_Detail_Field.cs" />
+    <Compile Include="AutoFiles\T6_Check.cs" />
+    <Compile Include="AutoFiles\T6_Check_B1_ZongBiao.cs" />
+    <Compile Include="AutoFiles\T6_Check_B3_CaiJue.cs" />
+    <Compile Include="AutoFiles\T6_Check_B4_JueJin.cs" />
+    <Compile Include="AutoFiles\T6_Check_B6_CaiKuang.cs" />
+    <Compile Include="AutoFiles\T6_Check_B7_ChuKuang.cs" />
+    <Compile Include="AutoFiles\T6_Plan.cs" />
+    <Compile Include="AutoFiles\T6_Plan_B1_ZongBiao.cs" />
+    <Compile Include="AutoFiles\T6_Plan_B7_ChuKuang.cs" />
+    <Compile Include="AutoFiles\T6_Plan_B6_CaiKuang.cs" />
+    <Compile Include="AutoFiles\T6_Plan_B3_CaiJue.cs" />
+    <Compile Include="AutoFiles\T6_Plan_B4_JueJin.cs" />
+    <Compile Include="AutoFiles\T7_Sample.cs" />
+    <Compile Include="Controllers\A01_LoginController.cs" />
+    <Compile Include="Controllers\A02_HomePageController.cs" />
+    <Compile Include="Controllers\B01_PRoleController.cs" />
+    <Compile Include="Controllers\B02_DRoleController.cs" />
+    <Compile Include="Controllers\B03_RRoleController.cs" />
+    <Compile Include="Controllers\B04_OrgController.cs" />
+    <Compile Include="Controllers\B05_PositionController.cs" />
+    <Compile Include="Controllers\B06_JobController.cs" />
+    <Compile Include="Controllers\B10_UserController.cs" />
+    <Compile Include="Controllers\C01_EquipmentController.cs" />
+    <Compile Include="Controllers\C02_EquipmentTypeController.cs" />
+    <Compile Include="Controllers\C03_EquiDataEntryController.cs" />
+    <Compile Include="Controllers\C04_EquiDataController.cs" />
+    <Compile Include="Controllers\C11_MineDataEntryController.cs" />
+    <Compile Include="Controllers\C12_MineDataController.cs" />
+    <Compile Include="Controllers\C21_RManageController.cs" />
+    <Compile Include="Controllers\C22_OperLogController.cs" />
+    <Compile Include="Controllers\D01_PlanController.cs" />
+    <Compile Include="Controllers\D02_CheckController.cs" />
+    <Compile Include="Controllers\D02_PlanController.cs" />
+    <Compile Include="Controllers\E01_SampleController.cs" />
+    <Compile Include="Controllers\C91_MessageBoardController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SelectOption.cs" />
+    <Compile Include="Models\T1_Page.cs" />
+    <Compile Include="Models\T1_User.cs" />
+    <Compile Include="Models\T1_User_Excel.cs" />
+    <Compile Include="Models\T2_DRole.cs" />
+    <Compile Include="Models\T2_Org.cs" />
+    <Compile Include="Models\T2_Position.cs" />
+    <Compile Include="Models\T2_PRole.cs" />
+    <Compile Include="Models\T2_RRole.cs" />
+    <Compile Include="Models\T2_RRole_OperLog.cs" />
+    <Compile Include="Models\T3_Dynamic_Field.cs" />
+    <Compile Include="Models\T3_Equipment.cs" />
+    <Compile Include="Models\T3_EquipmentType.cs" />
+    <Compile Include="Models\T3_Job.cs" />
+    <Compile Include="Models\T4_MP.cs" />
+    <Compile Include="Models\T5_MessageBoard.cs" />
+    <Compile Include="Models\T5_WorkRecord.cs" />
+    <Compile Include="Models\T6_Check.cs" />
+    <Compile Include="Models\T6_Plan.cs" />
+    <Compile Include="Models\T6_Check_B1_ZongBiao.cs" />
+    <Compile Include="Models\T6_Plan_B1_ZongBiao.cs" />
+    <Compile Include="Models\T6_Check_B3_CaiJue.cs" />
+    <Compile Include="Models\T6_Plan_B3_CaiJue.cs" />
+    <Compile Include="Models\T6_Check_B4_JueJin.cs" />
+    <Compile Include="Models\T6_Plan_B4_JueJin.cs" />
+    <Compile Include="Models\T6_Check_B6_CaiKuang.cs" />
+    <Compile Include="Models\T6_Plan_B6_CaiKuang.cs" />
+    <Compile Include="Models\T6_Check_B7_ChuKuang.cs" />
+    <Compile Include="Models\T6_Plan_B7_ChuKuang.cs" />
+    <Compile Include="Models\T7_Sample.cs" />
+    <Compile Include="MyLib\BaseController.cs" />
+    <Compile Include="MyLib\CacheHelper.cs" />
+    <Compile Include="MyLib\CookieHelper.cs" />
+    <Compile Include="MyLib\ExcelCommon.cs" />
+    <Compile Include="MyLib\MD5.cs" />
+    <Compile Include="MyLib\MyPara.cs" />
+    <Compile Include="MyLib\PageList.cs" />
+    <Compile Include="MyLib\SqlMB.cs" />
+    <Compile Include="MyLib\StringOption.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Contents\UI\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="Contents\UI\font-awesome\font\fontawesome-webfont.eot%40" />
+    <Content Include="Contents\UI\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="Contents\UI\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="Contents\UI\images\backgrounds\skype_3Asuniljoshi19%40call" />
+    <Content Include="Contents\UI\img\backgrounds\skype_3Asuniljoshi19%40call" />
+    <Content Include="Views\A01_Login\Login.cshtml" />
+    <Content Include="Views\A02_HomePage\_MB.cshtml" />
+    <Content Include="Views\A02_HomePage\Home.cshtml" />
+    <Content Include="Contents\zTree_v3\css\awesomeStyle\awesome.less" />
+    <Content Include="Contents\zTree_v3\css\awesomeStyle\fa.less" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap.css.map" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap.min.css.map" />
+    <Content Include="Contents\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Contents\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Contents\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Contents\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Views\A02_HomePage\EditPassword.cshtml" />
+    <Content Include="Views\A02_HomePage\_MB_Test.cshtml" />
+    <Content Include="Views\A02_HomePage\Home_Test.cshtml" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap-theme.css.map" />
+    <Content Include="Contents\bootstrap-3.3.7\css\bootstrap-theme.min.css.map" />
+    <Content Include="Contents\MyUI\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="Contents\MyUI\font-awesome\font\fontawesome-webfont.eot%40" />
+    <Content Include="Contents\MyUI\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="Contents\MyUI\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="Views\B01_PRole\PageList.cshtml" />
+    <Content Include="Views\B01_PRole\Add.cshtml" />
+    <Content Include="Views\B01_PRole\Edit.cshtml" />
+    <Content Include="Views\B04_Org\PageList.cshtml" />
+    <Content Include="Views\B04_Org\Add.cshtml" />
+    <Content Include="Views\B04_Org\Edit.cshtml" />
+    <Content Include="Views\B02_DRole\PageList.cshtml" />
+    <Content Include="Views\B02_DRole\Add.cshtml" />
+    <Content Include="Views\B02_DRole\Edit.cshtml" />
+    <Content Include="Views\B03_RRole\PageList.cshtml" />
+    <Content Include="Views\B03_RRole\Add.cshtml" />
+    <Content Include="Views\B03_RRole\Edit.cshtml" />
+    <Content Include="Views\B03_RRole\Bind.cshtml" />
+    <Content Include="Views\B10_User\Add.cshtml" />
+    <Content Include="Views\B10_User\PageList.cshtml" />
+    <Content Include="Views\B10_User\Edit.cshtml" />
+    <Content Include="Views\B06_Job\PageList.cshtml" />
+    <Content Include="Views\B06_Job\Add.cshtml" />
+    <Content Include="Views\B05_Position\PageList.cshtml" />
+    <Content Include="Views\B05_Position\Add.cshtml" />
+    <Content Include="Views\B05_Position\Edit.cshtml" />
+    <Content Include="Views\B06_Job\Field.cshtml" />
+    <Content Include="Views\C01_Equipment\PageList.cshtml" />
+    <Content Include="Views\C01_Equipment\Add.cshtml" />
+    <Content Include="Views\C01_Equipment\Edit.cshtml" />
+    <Content Include="Views\B05_Position\Bind.cshtml" />
+    <Content Include="Views\C01_Equipment\Bind.cshtml" />
+    <Content Include="Views\B10_User\PageList_Excel.cshtml" />
+    <Content Include="Views\B10_User\Edit_Excel.cshtml" />
+    <Content Include="Views\C02_EquipmentType\PageList.cshtml" />
+    <Content Include="Views\C02_EquipmentType\Add.cshtml" />
+    <Content Include="Views\C02_EquipmentType\Edit.cshtml" />
+    <Content Include="Views\C02_EquipmentType\Field.cshtml" />
+    <Content Include="Views\C03_EquiDataEntry\PageList.cshtml" />
+    <Content Include="Views\C03_EquiDataEntry\Edit.cshtml" />
+    <Content Include="Views\D01_Plan\PlanList.cshtml" />
+    <Content Include="Views\C03_EquiDataEntry\Add.cshtml" />
+    <Content Include="Views\D02_Check\CheckList.cshtml" />
+    <Content Include="Views\E01_Sample\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Views\C04_EquiData\PageList.cshtml" />
+    <Content Include="Views\C04_EquiData\Detail.cshtml" />
+    <Content Include="Views\C21_RManage\PageList.cshtml" />
+    <Content Include="Views\C03_EquiDataEntry\RSubmit.cshtml" />
+    <Content Include="Views\C21_RManage\RSubmit.cshtml" />
+    <Content Include="Views\C22_OperLog\Layer_PageList.cshtml" />
+    <Content Include="Views\C11_MineDataEntry\PageList.cshtml" />
+    <Content Include="Views\C11_MineDataEntry\Add.cshtml" />
+    <Content Include="Views\C11_MineDataEntry\Edit.cshtml" />
+    <Content Include="Views\C11_MineDataEntry\RSubmit.cshtml" />
+    <Content Include="Views\C12_MineData\PageList.cshtml" />
+    <Content Include="Views\C12_MineData\Detail.cshtml" />
+    <Content Include="Views\C91_MessageBoard\PageList.cshtml" />
+    <Content Include="Views\C91_MessageBoard\Add.cshtml" />
+    <Content Include="Views\C91_MessageBoard\Edit.cshtml" />
+    <Content Include="Views\C91_MessageBoard\Detail.cshtml" />
+    <Content Include="Views\D01_Plan\Detail.cshtml" />
+    <Content Include="Views\D02_Check\Detail.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Scripts_View\" />
+    <Folder Include="Views\T5_MessageBoard\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>25849</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8060</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

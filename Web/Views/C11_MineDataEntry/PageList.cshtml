@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewBag.Title = "PageList";
+    Layout = "~/Views/A02_HomePage/_MB.cshtml";
+}
+
+<link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+<script src="../../Contents/My97DatePicker/WdatePicker.js"></script>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-top:10px; margin-left:-30px;margin-bottom:10px;">
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <span class="input-group-addon" style="width:100px;">工作时间</span>
+                        <input id="Para1" type="text" readonly="readonly" placeholder="工作时间" class="form-control" style="background: #fff url('../../Contents/My97DatePicker/skin/datePicker.gif')no-repeat right; cursor: default;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <span class="input-group-addon" style="width:100px;">班次</span>
+                        <select class="form-control" id="Para2"></select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <input type="button" class="btn btn-primary" style="margin-top:-3px;margin-left:10px;" value="查询" onclick="Btn_Search();" />
+                        <input type="button" class="btn btn-primary" style="margin-top:-3px;margin-left:10px;" value="新增" onclick="Btn_Add();" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left:-30px;margin-bottom:10px;">
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <span class="input-group-addon" style="width:100px;">录入人</span>
+                        <input id="Para3" type="text" class="form-control" placeholder="" maxlength="10" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <span class="input-group-addon" style="width:100px;">状态</span>
+                        <select class="form-control" id="Para4"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box">
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th name="i" class="c" style="width:80px;">序号</th>
+                                <th name="WorkDate" class="c">工作时间</th>
+                                <th name="WorkClassName" class="c">班次</th>
+                                <th name="WorkManName" class="c">录入人</th>
+                                <th name="DF" class="l">数据</th>
+                                <th name="Status_Str2" class="c">审核状态</th>
+                                <th name="op" class="c" style="width:180px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagelist_1_tbody"></tbody>
+                    </table>
+                    <div id="pagelist_1" style="margin-top:-20px;text-align:right;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../Scripts_Common/PageList.js"></script>
+
+<script type="text/javascript">
+    var dataObj = PageListFun_Data();
+    dataObj.UserID = "@ViewBag.UserID";
+    dataObj.OrgCode = "@ViewBag.OrgCode";
+    dataObj.RRoleCode = "@ViewBag.RRoleCode";
+    dataObj.DRoleType = "@ViewBag.DRoleType";
+    dataObj.Fun_Loading = function () {
+        initHtml();
+    };
+    dataObj.PageList_BtnInfo.Btns = [
+        {
+            "Tag": "edit",
+            "Title": "编辑",
+            "Fun_Callback": function (obj) {
+                if (obj.Status == "1") {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            "Fun_Click": function (obj) {
+                var ID = obj.ID;
+                CommonFun_OpenLayer({ "Type": "1205*600", "Title": "编辑", "Url": "/C11_MineDataEntry/Edit", "Data": { "ID": ID }, "Fun_End": function () { initHtml(); } });
+            }
+        }, {
+            "Tag": "submit",
+            "Title": "提交审核",
+            "Fun_Callback": function (obj) {
+                if (obj.Status == "1") {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            "Fun_Click": function (obj) {
+                var ID = obj.ID;
+                CommonFun_OpenLayer({ "Type": "1205*600", "Title": "提交审核", "Url": "/C11_MineDataEntry/RSubmit", "Data": { "ID": ID }, "Fun_End": function () { initHtml(); } });
+            }
+        }, {
+            "Tag": "log",
+            "Title": "审核记录",
+            "Fun_Callback": function (obj) {
+                return true;
+            },
+            "Fun_Click": function (obj) {
+                var ID = obj.ID;
+                CommonFun_OpenLayer({ "Type": "1205*600", "Title": "审核记录", "Url": "/C22_OperLog/Layer_PageList", "Data": { "WorkRecordID": ID }, "Fun_End": function () { } });
+            }
+        }
+    ];
+
+    $(function () {
+        Crumbs.Data[0].Name = "井下录入数据列表";
+        Crumbs.Data[0].Url = "/C11_MineDataEntry/PageList?r=" + Math.random() + "&CurrPage=" + CurrPage;
+        Crumbs.Fun_SetCrumbs();
+
+        //$("#Para1").val(CommonFun_GetNowFormatDate());
+
+        var data;
+        eval("(data = @Html.Raw(ViewBag.Ret));");
+        CommonFun_Select_Init("Para2", data.obj5, "", "全部");
+        CommonFun_Select_Init("Para4", data.obj9, "1");
+
+        initHtml();
+    });
+
+    function initHtml() {
+        var ajaxObj = CommonFun_Ajax();
+        ajaxObj.url = "../api/C11_MineDataEntry/GetPageList";
+        ajaxObj.data = { "para": dataObj.PageList_Json() };
+        ajaxObj.getData(function (data) {
+            dataObj.Fun_InitData(data.obj1);
+            dataObj.Fun_InitDiv("pagelist_1");
+            dataObj.Fun_InitTable("pagelist_1_tbody");
+        }, function () {
+            // Error
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function Btn_Search() {
+        initHtml();
+    }
+
+    function Btn_Add() {
+        CommonFun_OpenLayer({ "Type": "1205*600", "Title": "新增", "Url": "/C11_MineDataEntry/Add", "Fun_End": function () { initHtml(); } });
+    }
+</script>

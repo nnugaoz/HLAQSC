@@ -1,0 +1,187 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <script src="../../Scripts_Common/PageList.js"></script>
+</head>
+<body style="overflow-x:hidden;overflow-y:hidden;">
+    <input type="hidden" id="ID" value="" />
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:480px;width:420px;float:left;">
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">工作时间：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="WorkDate" readonly>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">班次：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="WorkClassName" readonly>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">录入人：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="WorkManName" readonly>
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">工作时长：</div>
+                    <input type="text" style="width:230px;" class="form-control" id="WorkHour" readonly>
+                    <div class="input-group-addon" style="width: 70px;">小时</div>
+                </div>
+            </div>
+            <div class="form-group" style="height:480px;width:760px;float:left;">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#div1" aria-controls="div1" name="div1" role="tab" data-toggle="tab">第一项</a></li>
+                    <li role="presentation"><a href="#div2" aria-controls="div2" name="div2" role="tab" data-toggle="tab">第二项</a></li>
+                    <li role="presentation"><a href="#div3" aria-controls="div3" name="div3" role="tab" data-toggle="tab">第三项</a></li>
+                    <li role="presentation"><a href="#div4" aria-controls="div4" name="div4" role="tab" data-toggle="tab">第四项</a></li>
+                    <li role="presentation"><a href="#div5" aria-controls="div5" name="div5" role="tab" data-toggle="tab">第五项</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="div1">
+                        <div class="input-group" style="margin-top:10px;">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">设备：</div>
+                            <input type="text" style="width:300px;" class="form-control" name="EquipmentID" readonly>
+                        </div>
+                        <div style="height:10px;">&nbsp;</div>
+                        <div class="input-group">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">工作时长：</div>
+                            <input type="text" style="width:280px;" class="form-control" name="WorkHour" readonly>
+                            <div class="input-group-addon" style="width: 70px;">小时</div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div2">
+                        <div class="input-group" style="margin-top:10px;">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">设备：</div>
+                            <input type="text" style="width:300px;" class="form-control" name="EquipmentID" readonly>
+                        </div>
+                        <div style="height:10px;">&nbsp;</div>
+                        <div class="input-group">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">工作时长：</div>
+                            <input type="text" style="width:280px;" class="form-control" name="WorkHour" readonly>
+                            <div class="input-group-addon" style="width: 70px;">小时</div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div3">
+                        <div class="input-group" style="margin-top:10px;">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">设备：</div>
+                            <input type="text" style="width:300px;" class="form-control" name="EquipmentID" readonly>
+                        </div>
+                        <div style="height:10px;">&nbsp;</div>
+                        <div class="input-group">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">工作时长：</div>
+                            <input type="text" style="width:280px;" class="form-control" name="WorkHour" readonly>
+                            <div class="input-group-addon" style="width: 70px;">小时</div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div4">
+                        <div class="input-group" style="margin-top:10px;">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">设备：</div>
+                            <input type="text" style="width:300px;" class="form-control" name="EquipmentID" readonly>
+                        </div>
+                        <div style="height:10px;">&nbsp;</div>
+                        <div class="input-group">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">工作时长：</div>
+                            <input type="text" style="width:280px;" class="form-control" name="WorkHour" readonly>
+                            <div class="input-group-addon" style="width: 70px;">小时</div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div5">
+                        <div class="input-group" style="margin-top:10px;">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">设备：</div>
+                            <input type="text" style="width:300px;" class="form-control" name="EquipmentID" readonly>
+                        </div>
+                        <div style="height:10px;">&nbsp;</div>
+                        <div class="input-group">
+                            <div class="input-group-addon" style="width: 100px; text-align: right;">工作时长：</div>
+                            <input type="text" style="width:280px;" class="form-control" name="WorkHour" readonly>
+                            <div class="input-group-addon" style="width: 70px;">小时</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var mObj = CommonFun_Data();
+
+        $(function () {
+            var data;
+            eval("(data = @Html.Raw(ViewBag.Ret));");
+
+            var obj = data.obj1;
+            mObj.Fun_Data_Init(obj);
+            mObj.Fun_Set_Html();
+
+            var obj = data.obj2;
+            var dfs = data.obj3;
+            if (obj != null) {
+                for (var i = 5; i > obj.length; i--) {
+                    $("ul.nav-tabs a[name='div" + i + "']").remove();
+                    $("#div" + i).remove();
+                }
+
+
+                for (var i = 0; i < obj.length; i++) {
+                    var obj_div = $("#div" + (i + 1));
+                    $(obj_div).find("input[name='EquipmentID']").val(obj[i].EquipmentName);
+                    $(obj_div).find("input[name='WorkHour']").val(obj[i].WorkHour);
+
+                    var html = "";
+                    if (dfs != null && dfs.length > 0) {
+                        for (var j = 0; j < dfs.length; j++) {
+                            if (dfs[j].WorkRecordDetailID == obj[i].ID) {
+                                var row = dfs[j];
+
+                                html += "<div name='DF' style='height:10px;'>&nbsp;</div>";
+                                html += "<div name='DF' class='input-group'>";
+                                html += "<div class='input-group-addon' style='width: 150px; text-align: right;'>" + row.FieldName + "：</div>";
+
+                                if (row.FieldMode == "1") { // 数字
+                                    if (row.FieldUnit0 == "") {
+                                        html += "<input type='text' style='width:300px;' class='form-control' name='" + row.FieldKey + "' value='" + row.FieldValue + "' readonly>";
+                                        html += "<div class='input-group-addon' style='width: 50px;'>" + row.FieldUnit + "</div>";
+                                    } else {
+                                        html += "<input type='text' style='width:150px;' class='form-control' name='" + row.FieldKey + "' value='" + row.FieldValue + "' readonly>";
+                                        html += "<div class='input-group-addon' style='width: 50px;'>" + row.FieldUnit + "</div>";
+                                        html += "<div class='input-group-addon' style='width: 100px;'>" + row.FieldTypeName + "</div>";
+                                    }
+                                }
+                                if (row.FieldMode == "2" || row.FieldMode == "3") { // 文本或时间
+                                    html += "<input type='text' style='width:300px;' class='form-control' name='" + row.FieldKey + "' value='" + row.FieldValue + "' readonly>";
+                                }
+
+                                html += "</div>";
+                            }
+                        }
+
+                        $("#div" + (i + 1)).append(html);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

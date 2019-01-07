@@ -1,0 +1,198 @@
+﻿@{
+    ViewBag.Title = "EmployeeImport";
+    Layout = "~/Views/A02_HomePage/_MB.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                <form id="formUpload" method="post" action="/B10_User/Upload" enctype="multipart/form-data">
+                    <div class="col-lg-4 col-sm-4 col-xs-4">
+                        <input type="text" id="txtFileEmployeePath" class="form-control" readonly="readonly" />
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-xs-4">
+                        <input type="button" class="btn btn-primary" style="margin-top:1px;margin-left:10px;" value="浏览" onclick="Btn_Browser();">
+                        @*<input type="button" class="btn btn-primary" style="margin-top:1px;margin-left:10px;" value="验证" onclick="Btn_Validate();">*@
+                        <input type="button" class="btn btn-primary" style="margin-top:1px;margin-left:10px;" value="导入" onclick="Btn_Import();">
+                        <input type="button" class="btn btn-primary" id="btnDownloadExcelTemplate" value="用户模板下载" onclick="btnDownloadExcelTemplate_Click();">
+                    </div>
+                    <div class="col-lg-2 col-sm-2 col-xs-2">
+                        <input type="file" name="EmployeeExcel" id="EmployeeExcel" accept=".xlsx" style="visibility:hidden" onchange="EmployeeFileSelected(this);" />
+                    </div>
+                </form>
+            </div>
+            <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" rows="3" placeholder="验证信息......" id="txtaValMsg"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-top:10px; margin-left:-30px;margin-bottom:10px;">
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <span class="input-group-addon" style="width:100px;">员工姓名</span>
+                        <input id="Para1" type="text" class="form-control" placeholder="" maxlength="10" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <input type="button" class="btn btn-primary" style="margin-top:-3px;margin-left:10px;" value="查询" onclick="Btn_Search();" />
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box">
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th name="i" class="c" style="width:80px;">序号</th>
+                                <th name="Name" class="l">员工姓名</th>
+                                <th name="LoginName" class="l">登录名</th>
+                                <th name="OrgName" class="l">组织机构</th>
+                                <th name="JobName" class="l">工种</th>
+                                <th name="op" class="c" style="width:120px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagelist_1_tbody"></tbody>
+                    </table>
+                    <div id="pagelist_1" style="margin-top:-20px;text-align:right;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../Scripts_Common/PageList.js"></script>
+
+    <script type="text/javascript">
+        var dataObj = PageListFun_Data();
+        dataObj.UserID = "@ViewBag.UserID";
+        dataObj.OrgCode = "@ViewBag.OrgCode";
+        dataObj.RRoleCode = "@ViewBag.RRoleCode";
+        dataObj.DRoleType = "@ViewBag.DRoleType";
+        dataObj.PageList_Count = 10;
+        dataObj.Fun_Loading = function () {
+            initHtml();
+        };
+        dataObj.PageList_BtnInfo.Btns = [
+            {
+                "Tag": "edit",
+                "Title": "编辑",
+                "Fun_Callback": function (obj) {
+                    return true;
+                },
+                "Fun_Click": function (obj) {
+                    var ID = obj.ID;
+                    CommonFun_OpenLayer({ "Type": "700*550", "Title": "编辑", "Url": "/B10_User/Edit_Excel", "Data": { "ID": ID }, "Fun_End": function () { initHtml(); } });
+                }
+            }
+        ];
+
+        function initHtml() {
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/B10_User/GetUserList_Excel";
+            ajaxObj.data = { "para": dataObj.PageList_Json() };
+            ajaxObj.getData(function (data) {
+                dataObj.Fun_InitData(data.obj1);
+                dataObj.Fun_InitDiv("pagelist_1");
+                dataObj.Fun_InitTable("pagelist_1_tbody");
+            }, function () {
+                // Error
+            });
+        }
+
+        $(function () {
+            Crumbs.Data = [{ Name: "员工导入", Url: "/B10_User/PageList_Excel?CurrPage=" + CurrPage }];
+            Crumbs.Fun_SetCrumbs();
+
+            initHtml();
+        });
+
+        function Btn_Browser() {
+            $("#EmployeeExcel").click();
+        }
+
+        function Btn_Validate(fn_ValSuccess) {
+            $("#txtaValMsg").val("");
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/B10_User/ExcelImportValidate";
+            ajaxObj.data = "";
+            ajaxObj.getData(function (data) {
+                if (data.ret_status != "0") {
+                    if (data.ret_status == "1") {
+                        var lValMsg = "";
+                        //展示重复【登录名】
+                        if (data.obj1 != null && data.obj1.length > 0) {
+                            lValMsg += "以下【登录名】重复：\n";
+                            for (var i = 0; i < data.obj1.length; i++) {
+                                lValMsg += data.obj1[i].LoginName + "、";
+                            }
+                            lValMsg = lValMsg.substring(0, lValMsg.length - 1);
+                        }
+
+                        //展示重复【用户唯一标识】
+                        if (data.obj2 != null && data.obj2.length > 0) {
+                            if (lValMsg != "") {
+                                lValMsg += "\n";
+                            }
+                            lValMsg += "以下【用户唯一标识】重复：\n";
+                            for (var i = 0; i < data.obj2.length; i++) {
+                                lValMsg += data.obj2[i].UserKey + "、";
+                            }
+                            lValMsg = lValMsg.substring(0, lValMsg.length - 1);
+                        }
+
+
+                        $("#txtaValMsg").val(lValMsg);
+
+                    }
+                    else if (data.ret_status == "2") {
+                        //$("#txtaValMsg").val("验证通过！");
+                        if (fn_ValSuccess != null) {
+                            fn_ValSuccess();
+                        }
+                    }
+                }
+                else {
+                    $("#txtaValMsg").val("验证出错！");
+                }
+            })
+        }
+
+        function Btn_Import() {
+            Btn_Validate(function () {
+                var ajaxObj = CommonFun_Ajax();
+                ajaxObj.url = "../api/B10_User/ExcelImport";
+                ajaxObj.data = "";
+                ajaxObj.getData(function (data) {
+                    if (data.ret_status != "0") {
+                        alert("导入成功！");
+                        initHtml();
+                    }
+                    else {
+                        alert("导入失败！");
+                    }
+                });
+            })
+        }
+
+        function EmployeeFileSelected(fileInput) {
+            var files = fileInput.files;
+            layer.load(2);
+            for (var i = 0; i < files.length; i++) {
+                $("#txtFileEmployeePath").val(files[i].name);
+            }
+            if ($("#txtFileEmployeePath").val() != null && $("#txtFileEmployeePath").val() != "") {
+                $("#formUpload").submit();
+            }
+            layer.closeAll("loading");
+        }
+
+        function Btn_Search() {
+            initHtml();
+        }
+
+        function btnDownloadExcelTemplate_Click() {
+            window.location.href = "/D01_Plan/DownloadTemplate?pFileType=USER";
+        }
+    </script>

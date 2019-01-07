@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+</head>
+<body>
+    <input type="hidden" id="ID" value="">
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:280px;width:665px;float:left;">
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">工种：</div>
+                    <select class="form-control" id="Code" style="width:565px;"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;margin-right:30px;">
+        <div class="form-group" style="text-align:right;">
+            <button type="button" class="btn btn-primary" onclick="Do_Save();">提交</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dataObj = CommonFun_Data();
+
+        $(function () {
+            var data;
+            eval("(data = @Html.Raw(ViewBag.Ret));");
+
+            CommonFun_Select_Init("Code", data.obj9);
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Do_Save() {
+            dataObj.Fun_Data_Init({ "Code": "", "Del": "0" });
+            dataObj.Fun_Get_Html();
+
+            layer.load(2);
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/B06_Job/DoSave";
+            ajaxObj.data = { "para": dataObj.Fun_Serialize_All() };
+            ajaxObj.getData(function (data) {
+                layer.closeAll("loading");
+
+                if (data.ret_status == ParaData.ret.Succes) {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                } else {
+                    alert("保存失败！可能存在重复数据！");
+                }
+            }, function () {
+                // Error
+                layer.closeAll("loading");
+            });
+        }
+    </script>
+</body>
+</html>

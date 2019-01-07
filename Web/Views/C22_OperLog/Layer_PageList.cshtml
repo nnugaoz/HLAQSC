@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <script src="../../Scripts_Common/PageList.js"></script>
+</head>
+<body style="overflow-x:hidden;overflow-y:hidden;">
+    <input type="hidden" id="ETType" value="" />
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:480px;width:1180px;float:left;">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-content nopadding">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th name="i" class="c" style="width:80px;">序号</th>
+                                                <th name="UserName" class="c" style="width:200px;">操作人</th>
+                                                <th name="Result_Str" class="c" style="width:80px;">操作类型</th>
+                                                <th name="RDate1" class="c" style="width:150px;">操作时间</th>
+                                                <th name="Remark" class="l">情况说明</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pagelist_1_tbody"></tbody>
+                                    </table>
+                                    <div id="pagelist_1" style="margin-top:-20px;text-align:right;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dataObj = PageListFun_Data();
+        dataObj.PageList_Count = 10;
+        dataObj.UserID = "@ViewBag.UserID";
+        dataObj.OrgCode = "@ViewBag.OrgCode";
+        dataObj.RRoleCode = "@ViewBag.RRoleCode";
+        dataObj.DRoleType = "@ViewBag.DRoleType";
+        dataObj.Para1 = "@ViewBag.WorkRecordID";
+        dataObj.Fun_Loading = function () {
+            initHtml();
+        };
+
+        $(function () {
+            initHtml();
+        });
+    </script>
+
+    <script type="text/javascript">
+        function initHtml() {
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/C22_OperLog/GetPageList";
+            ajaxObj.data = { "para": dataObj.PageList_Json() };
+            ajaxObj.getData(function (data) {
+                dataObj.Fun_InitData(data.obj1);
+                dataObj.Fun_InitDiv("pagelist_1");
+                dataObj.Fun_InitTable("pagelist_1_tbody");
+            }, function () {
+                // Error
+            });
+        }
+    </script>
+</body>
+</html>

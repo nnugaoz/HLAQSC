@@ -1,0 +1,221 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Contents/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+    <script type="text/javascript" src="~/Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Contents/layer/layer.js"></script>
+    <script type="text/javascript" src="~/Scripts_Common/Common.js"></script>
+    <script type="text/javascript" src="~/Scripts_Common/ParaData.js"></script>
+    <script type="text/javascript" src="~/Contents/zTree_v3/js/jquery.ztree.core.js"></script>
+    <title>编辑</title>
+</head>
+<body>
+    <input type="hidden" id="ID" value="">
+    <div style="margin:10px;">
+        <div class="form-inline" style="height:280px;width:650px;float:left;">
+
+            <div class="form-group">
+                <label class="sr-only" for="Name">员工姓名</label>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right">员工姓名：</div>
+                    <input type="text" style="width:200px;" class="form-control" id="Name" maxlength="20">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only" for="LoginName">登录名</label>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right">登录名：</div>
+                    <input type="text" style="width:200px;" class="form-control" id="LoginName" maxlength="20">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only" for="OrgName">组织机构</label>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right">组织机构：</div>
+                    <input type="text" style="width:200px;" readonly="readonly" class="form-control" id="OrgName" maxlength="20">
+                    <input type="text" style="width:200px;visibility:hidden" readonly="readonly" class="form-control" id="OrgCode" maxlength="20">
+                </div>
+            </div>
+
+            <div class="form-group" style="border: 1px solid #CCC; width: 300px; border-radius: 5px; height:150px; ">
+                <label class="sr-only" for="Org">组织机构列表</label>
+                <ul id="Org" class="ztree"></ul>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="JobCode">工种</label>
+                    <div class="input-group-addon" style="width: 100px; text-align: right">工种：</div>
+                    <select class="form-control" id="JobCode" style="width:200px;"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="DRoleType">数据权限</label>
+                    <div class="input-group-addon" style="width: 100px; text-align: right">数据权限：</div>
+                    <select class="form-control" id="DRoleType" style="width:200px;"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="RRoleName">审批层级</label>
+                    <div class="input-group-addon" style="width: 100px; text-align: right">审批层级：</div>
+                    <input type="text" style="width:200px;" readonly="readonly" class="form-control" id="RRoleName" maxlength="20">
+                    <input type="text" style="width:200px;visibility:hidden;" readonly="readonly" class="form-control" id="RRoleCode" maxlength="20">
+                </div>
+            </div>
+
+            <div class="form-group" style="border: 1px solid #CCC; width: 300px; border-radius: 5px; height:150px; ">
+                <label class="sr-only" for="RRole">审批权限列表</label>
+                <ul id="RRole" class="ztree"></ul>
+            </div>
+
+            @*<div class="form-group">
+                <div class="input-group">
+                    <label class="sr-only" for="UserKey">唯一标识</label>
+                    <div class="input-group-addon" style="width: 100px; text-align: right">唯一标识：</div>
+                    <input type="text" style="width:200px;" class="form-control" id="UserKey" maxlength="20">
+                </div>
+            </div>*@
+
+            <div class="form-group" style="text-align: right; margin-right: 25px;">
+                <button type="button" class="btn btn-primary" onclick="Do_Save();">提交</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dataObj = CommonFun_Data();
+
+        $(function () {
+            var retObj = eval("(" + "@Html.Raw(ViewBag.Ret)" + ")");
+            var userObj = retObj.obj1;
+            var jobObj = retObj.obj2;
+            var orgObj = retObj.obj3;
+            var dRoleObj = retObj.obj4;
+            var rRoleObj = retObj.obj5;
+
+            dataObj.Fun_Data_Init(userObj);
+            dataObj.Fun_Set_Html();
+            CommonFun_Select_Init("JobCode", jobObj, userObj[0].JobCode, "-");
+
+            CommonFun_Select_Init("DRoleType", dRoleObj, userObj[0].DRoleType, "-");
+
+            var zTreeOrgObj;
+            var zTreeOrgSetting = {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: onOrgClick
+                }
+            };
+            zTreeOrgObj = $.fn.zTree.init($("#Org"), zTreeOrgSetting, orgObj);
+            zTreeOrgObj.expandAll(true);
+
+            var zTreeRRoleObj;
+            var zTreeRRoleSetting = {
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: onRRoleClick
+                }
+            };
+            zTreeRRoleObj = $.fn.zTree.init($("#RRole"), zTreeRRoleSetting, rRoleObj);
+            zTreeRRoleObj.expandAll(true);
+
+        });
+
+        function onOrgClick(event, treeId, treeNode, clickFlag) {
+            $("#OrgCode").val(treeNode.id);
+            $("#OrgName").val(treeNode.name);
+        }
+
+        function onRRoleClick(event, treeId, treeNode, clickFlag) {
+            $("#RRoleCode").val(treeNode.id);
+            $("#RRoleName").val(treeNode.name);
+        }
+    </script>
+
+    <script type="text/javascript">
+        function Do_Save() {
+            dataObj.Fun_Set_OneCheckInfo("Name", "员工姓名", "null");
+            dataObj.Fun_Set_OneCheckInfo("LoginName", "登录名", "null");
+
+            try {
+                dataObj.Fun_Get_Html();
+                dataObj.Fun_Check();
+            } catch (err) {
+                alert(err);
+                return false;
+            }
+
+            layer.load(2);
+            var ajaxObj = CommonFun_Ajax();
+            //判断登录名是否被占用
+            ajaxObj.url = "../api/B10_User/CheckLoginName_Excel"
+            ajaxObj.data = { "para": dataObj.Fun_Serialize_Para("ID,LoginName") };
+            ajaxObj.getData(function (data) {
+                if (data.ret_status == ParaData.ret.Succes) {
+                    ////判断用户标识是否唯一
+                    //ajaxObj.url = "../api/B10_User/CheckUserKey_Excel"
+                    //ajaxObj.data = { "para": dataObj.Fun_Serialize_Para("ID,UserKey") };
+                    //ajaxObj.getData(function (data) {
+                        //if (data.ret_status == ParaData.ret.Succes) {
+                            //添加员工
+                            ajaxObj.url = "../api/B10_User/DoSave_Excel";
+                            ajaxObj.data = { "para": dataObj.Fun_Serialize_All() };
+
+                            ajaxObj.getData(function (data) {
+                                layer.closeAll("loading");
+
+                                if (data.ret_status == ParaData.ret.Succes) {
+                                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                                } else {
+                                    alert("保存失败！");
+                                }
+                            }, function () {
+                                // Error
+                                layer.closeAll("loading");
+                            });
+                        //}
+                        //else {
+                        //    // Error
+                        //    layer.closeAll("loading");
+                        //    alert("用户标识不唯一，保存失败！");
+                        //}
+                    //}, function () {
+                    //    // Error
+                    //    layer.closeAll("loading");
+                    //});
+                }
+                else {
+                    layer.closeAll("loading");
+                    alert("该登录名已被占用，保存失败！");
+                }
+
+            }, function () {
+                // Error
+                layer.closeAll("loading");
+            });
+        }
+    </script>
+</body>
+</html>

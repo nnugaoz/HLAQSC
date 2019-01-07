@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/A02_HomePage/_MB.cshtml";
+}
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>样本编码</th>
+                <th>采样位置</th>
+                <th>采样时间</th>
+                <th>采样人</th>
+                <th>样本备注</th>
+                <th>分析结果</th>
+                <th>分析人</th>
+                <th>分析时间</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        Crumbs.Data = [{ "Name": "采样列表", "Url": "../E01_Sample/Index" }];
+        Crumbs.Fun_SetCrumbs();
+
+        $.ajax({
+            url: "../Api/E01_Sample/GetSampleList"
+            , timeout: 1000 * 30
+            , success: function (pData) {
+                var lData = JSON.parse(pData);
+                if (lData.Status == "1") {
+                    alert("SUCCESS!");
+                }
+                else if (lData.Status == "2") {
+                    alert("NO DATA!");
+                }
+            }
+            , error: function (XHR) {
+                alert("error" + XHR);
+            }
+            , complete: function (XHR) {
+                alert("complete:" + XHR);
+            }
+        });
+    });
+</script>
