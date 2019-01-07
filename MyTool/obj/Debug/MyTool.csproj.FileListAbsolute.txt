@@ -1,0 +1,15 @@
+E:\gz\HL\SVN\04_开发\Web\MyTool\bin\Debug\MyTool.dll
+E:\gz\HL\SVN\04_开发\Web\MyTool\bin\Debug\MyTool.pdb
+E:\gz\HL\SVN\04_开发\Web\MyTool\bin\Debug\System.Net.Http.dll
+E:\gz\HL\SVN\04_开发\Web\MyTool\bin\Debug\System.Net.Http.xml
+E:\gz\HL\SVN\04_开发\Web\MyTool\bin\Debug\zh-Hans\System.Net.Http.resources.dll
+E:\gz\HL\SVN\04_开发\Web\MyTool\obj\Debug\MyTool.dll
+E:\gz\HL\SVN\04_开发\Web\MyTool\obj\Debug\MyTool.pdb
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\bin\Debug\MyTool.dll
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\bin\Debug\MyTool.pdb
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\bin\Debug\System.Net.Http.dll
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\bin\Debug\System.Net.Http.xml
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\bin\Debug\zh-Hans\System.Net.Http.resources.dll
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\obj\Debug\MyTool.dll
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\obj\Debug\MyTool.pdb
+E:\36_红岭安全生产\01_SVN\04_开发\Web\MyTool\obj\Debug\MyTool.csprojResolveAssemblyReference.cache
