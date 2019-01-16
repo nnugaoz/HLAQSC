@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/A02_HomePage/_MB.cshtml";
+}
+
+<link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+<script src="../../Contents/My97DatePicker/WdatePicker.js"></script>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-top:10px; margin-left:-30px;margin-bottom:10px;">
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <span class="input-group-addon" style="width:100px;">日期</span>
+                        <input id="Para1" type="text" readonly="readonly" placeholder="日期" class="form-control" style="background: #fff url('../../Contents/My97DatePicker/skin/datePicker.gif')no-repeat right; cursor: default;" onclick="WdatePicker({ dateFmt: 'yyyy-MM' })" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <input type="button" class="btn btn-primary" style="margin-top:-3px;margin-left:10px;" value="查询" onclick="Btn_Search();" />
+                        <input type="button" class="btn btn-primary" style="margin-top:-3px;margin-left:10px;" value="数据填报" onclick="Btn_Edit();" />
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box" style="height:1000px; width:2000px;overflow:auto;">
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr id="pagelist_1_thead"></tr>
+                        </thead>
+                        <tbody id="pagelist_1_tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../Scripts_Common/PageList.js"></script>
+
+<script type="text/javascript">
+    var dataObj = PageListFun_Data();
+    dataObj.UserID = "@ViewBag.UserID";
+    dataObj.OrgCode = "@ViewBag.OrgCode";
+    dataObj.RRoleCode = "@ViewBag.RRoleCode";
+    dataObj.DRoleType = "@ViewBag.DRoleType";
+    dataObj.Fun_Loading = function () {
+        initHtml();
+    };
+
+    $(function () {
+        Crumbs.Data[0].Name = "汇总报表";
+        Crumbs.Data[0].Url = "/F01_Report/List?r=" + Math.random() + "&CurrPage=" + CurrPage;
+        Crumbs.Fun_SetCrumbs();
+
+        $("#Para1").val("2018-12");
+        // $("#Para1").val(CommonFun_GetYesterdayFormatDate());
+
+        initHtml();
+    });
+
+    function initHtml() {
+        var w = $(window).width() - 240 - 20;
+        var h = $(window).height() - 140 - 20;
+        $("div.widget-box").width(w);
+        $("div.widget-box").height(h);
+
+        var ajaxObj = CommonFun_Ajax();
+        ajaxObj.url = "../api/F01_Report/GetList";
+        ajaxObj.Para1 = $("#Para1").val() + "-01";
+        ajaxObj.data = { "para": dataObj.PageList_Json() };
+        ajaxObj.getData(function (data) {
+            if (data.obj1 != null && data.obj1.length > 0) {
+                tableInit(data.obj1);
+            } else {
+                $("#pagelist_1_thead").html("");
+                $("#pagelist_1_tbody").html("");
+            }
+        }, function () {
+            // Error
+        });
+    }
+
+    function tableInit(obj) {
+        var html = "";
+        var id = "";
+
+        for (var i = 0; i < obj.length; i++) {
+            var row = obj[i];
+
+            if (i == 1) {
+                var html_h = "";
+                var count = 0;
+                html_h += "<th style='width:100px;text-align:center;'>&nbsp;</th>";
+                html_h += "<th style='width:100px;text-align:center;'>&nbsp;</th>";
+                if (row.D1  != "") {html_h += "<th style='text-align:center;'>1日</th>";     count++;}
+                if (row.D2  != "") {html_h += "<th style='text-align:center;'>2日</th>";     count++;}
+                if (row.D3  != "") {html_h += "<th style='text-align:center;'>3日</th>";     count++;}
+                if (row.D4  != "") {html_h += "<th style='text-align:center;'>4日</th>";     count++;}
+                if (row.D5  != "") {html_h += "<th style='text-align:center;'>5日</th>";     count++;}
+                if (row.D6  != "") {html_h += "<th style='text-align:center;'>6日</th>";     count++;}
+                if (row.D7  != "") {html_h += "<th style='text-align:center;'>7日</th>";     count++;}
+                if (row.D8  != "") {html_h += "<th style='text-align:center;'>8日</th>";     count++;}
+                if (row.D9  != "") {html_h += "<th style='text-align:center;'>9日</th>";     count++;}
+                if (row.D10 != "") {html_h += "<th style='text-align:center;'>10日</th>";    count++;}
+                if (row.D11 != "") {html_h += "<th style='text-align:center;'>11日</th>";    count++;}
+                if (row.D12 != "") {html_h += "<th style='text-align:center;'>12日</th>";    count++;}
+                if (row.D13 != "") {html_h += "<th style='text-align:center;'>13日</th>";    count++;}
+                if (row.D14 != "") {html_h += "<th style='text-align:center;'>14日</th>";    count++;}
+                if (row.D15 != "") {html_h += "<th style='text-align:center;'>15日</th>";    count++;}
+                if (row.D16 != "") {html_h += "<th style='text-align:center;'>16日</th>";    count++;}
+                if (row.D17 != "") {html_h += "<th style='text-align:center;'>17日</th>";    count++;}
+                if (row.D18 != "") {html_h += "<th style='text-align:center;'>18日</th>";    count++;}
+                if (row.D19 != "") {html_h += "<th style='text-align:center;'>19日</th>";    count++;}
+                if (row.D20 != "") {html_h += "<th style='text-align:center;'>20日</th>";    count++;}
+                if (row.D21 != "") {html_h += "<th style='text-align:center;'>21日</th>";    count++;}
+                if (row.D22 != "") {html_h += "<th style='text-align:center;'>22日</th>";    count++;}
+                if (row.D23 != "") {html_h += "<th style='text-align:center;'>23日</th>";    count++;}
+                if (row.D24 != "") {html_h += "<th style='text-align:center;'>24日</th>";    count++;}
+                if (row.D25 != "") {html_h += "<th style='text-align:center;'>25日</th>";    count++;}
+                if (row.D26 != "") {html_h += "<th style='text-align:center;'>26日</th>";    count++;}
+                if (row.D27 != "") {html_h += "<th style='text-align:center;'>27日</th>";    count++;}
+                if (row.D28 != "") {html_h += "<th style='text-align:center;'>28日</th>";    count++;}
+                if (row.D29 != "") {html_h += "<th style='text-align:center;'>29日</th>";    count++;}
+                if (row.D30 != "") {html_h += "<th style='text-align:center;'>30日</th>";    count++;}
+                if (row.D31 != "") {html_h += "<th style='text-align:center;'>31日</th>";    count++;}
+                html_h += "<th style='width:100px;text-align:center;'>合计</th>";
+                $("#pagelist_1_thead").html(html_h);
+
+                $("table").parent().width(200 + 70 * count + 100);
+            }
+
+            html += "<tr>";
+            if (row.Type1 == "") {
+                html += "<td style='text-align:center;'></td>";
+            } else {
+                if (id == row.ID.substr(0, 3)) {
+                } else {
+                    var height = 18;
+                    if (row.Y1 > 1) {
+                        height = 18 + 34 * (parseInt(row.Y1, 10) - 1)
+                    }
+
+                    html += "<td rowspan='" + row.Y1 + "' style='text-align:center;line-height:" + height + "px;'>" + row.Type1 + "</td>";
+                    id = row.ID.substr(0, 3)
+                }
+            }
+            html += "<td style='text-align:center;'>" + row.Type2 + "</td>";
+            if (row.D1 != "")   html += "<td style='text-align:right;'>" + row.D1 + "</td>";
+            if (row.D2 != "")   html += "<td style='text-align:right;'>" + row.D2 + "</td>";
+            if (row.D3 != "")   html += "<td style='text-align:right;'>" + row.D3 + "</td>";
+            if (row.D4 != "")   html += "<td style='text-align:right;'>" + row.D4 + "</td>";
+            if (row.D5 != "")   html += "<td style='text-align:right;'>" + row.D5 + "</td>";
+            if (row.D6 != "")   html += "<td style='text-align:right;'>" + row.D6 + "</td>";
+            if (row.D7 != "")   html += "<td style='text-align:right;'>" + row.D7 + "</td>";
+            if (row.D8 != "")   html += "<td style='text-align:right;'>" + row.D8 + "</td>";
+            if (row.D9 != "")   html += "<td style='text-align:right;'>" + row.D9 + "</td>";
+            if (row.D10 != "")  html += "<td style='text-align:right;'>" + row.D10 + "</td>";
+            if (row.D11 != "")  html += "<td style='text-align:right;'>" + row.D11 + "</td>";
+            if (row.D12 != "")  html += "<td style='text-align:right;'>" + row.D12 + "</td>";
+            if (row.D13 != "")  html += "<td style='text-align:right;'>" + row.D13 + "</td>";
+            if (row.D14 != "")  html += "<td style='text-align:right;'>" + row.D14 + "</td>";
+            if (row.D15 != "")  html += "<td style='text-align:right;'>" + row.D15 + "</td>";
+            if (row.D16 != "")  html += "<td style='text-align:right;'>" + row.D16 + "</td>";
+            if (row.D17 != "")  html += "<td style='text-align:right;'>" + row.D17 + "</td>";
+            if (row.D18 != "")  html += "<td style='text-align:right;'>" + row.D18 + "</td>";
+            if (row.D19 != "")  html += "<td style='text-align:right;'>" + row.D19 + "</td>";
+            if (row.D20 != "")  html += "<td style='text-align:right;'>" + row.D20 + "</td>";
+            if (row.D21 != "")  html += "<td style='text-align:right;'>" + row.D21 + "</td>";
+            if (row.D22 != "")  html += "<td style='text-align:right;'>" + row.D22 + "</td>";
+            if (row.D23 != "")  html += "<td style='text-align:right;'>" + row.D23 + "</td>";
+            if (row.D24 != "")  html += "<td style='text-align:right;'>" + row.D24 + "</td>";
+            if (row.D25 != "")  html += "<td style='text-align:right;'>" + row.D25 + "</td>";
+            if (row.D26 != "")  html += "<td style='text-align:right;'>" + row.D26 + "</td>";
+            if (row.D27 != "")  html += "<td style='text-align:right;'>" + row.D27 + "</td>";
+            if (row.D28 != "")  html += "<td style='text-align:right;'>" + row.D28 + "</td>";
+            if (row.D29 != "")  html += "<td style='text-align:right;'>" + row.D29 + "</td>";
+            if (row.D30 != "")  html += "<td style='text-align:right;'>" + row.D30 + "</td>";
+            if (row.D31 != "")  html += "<td style='text-align:right;'>" + row.D31 + "</td>";
+            html += "<td style='text-align:right;'>" + row.HJ  + "</td>";
+            html += "</tr>";
+        }
+
+        $("#pagelist_1_tbody").html(html);
+    }
+</script>
+
+<script type="text/javascript">
+    function Btn_Search() {
+        initHtml();
+    }
+
+    function Btn_Edit() {
+        CommonFun_OpenLayer({ "Type": "705*550", "Title": "数据填报", "Url": "/F01_Report/Edit", "Fun_End": function () { initHtml(); } });
+    }
+</script>

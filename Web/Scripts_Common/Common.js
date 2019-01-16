@@ -505,6 +505,23 @@ function CommonFun_GetNowFormatDate() {
     var currentdate = year + seperator1 + month + seperator1 + strDate;
     return currentdate;
 }
+
+function CommonFun_GetYesterdayFormatDate() {
+    var date = new Date();
+    var preDate = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+    var seperator1 = "-";
+    var year = preDate.getFullYear();
+    var month = preDate.getMonth() + 1;
+    var strDate = preDate.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
 // ============================================================
 // end
 // 获取当前时间，格式YYYY-MM-DD

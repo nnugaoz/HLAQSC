@@ -94,7 +94,7 @@ namespace Web.Models
                 + " end "
                 + " else "
                 + " begin "
-                    + " delete T3_Equipment_Position where PositionCode = '" + PositionCode + "' "
+                    //+ " delete T3_Equipment_Position where PositionCode = '" + PositionCode + "' "
                     + " insert into T3_Equipment_Position select '" + ID + "', '" + PositionCode + "' "
                 + " end ";
 

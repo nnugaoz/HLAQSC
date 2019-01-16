@@ -1,0 +1,827 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+    <script src="../../Contents/My97DatePicker/WdatePicker.js"></script>
+
+    <link href="~/Contents/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <script src="../../Contents/zTree_v3/js/jquery.ztree.core.min.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <script src="../../Scripts_Common/PageList.js"></script>
+    <script type="text/javascript" src="../../Models/T8_WR.js"></script>
+    <script type="text/javascript" src="../../Models/T8_WR_Position_Data1.js"></script>
+    <script type="text/javascript" src="../../Models/T8_WR_Position_Data2_D.js"></script>
+    <script type="text/javascript" src="../../Models/T8_WR_Equipment_D.js"></script>
+
+</head>
+<body style="overflow-x:hidden;overflow-y:hidden;">
+    <input type="hidden" id="ID" value="" />
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:480px;width:420px;float:left;">
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right; color: red;">工作时间：</div>
+                    <input id="WorkDate" type="text" readonly="readonly" placeholder="工作时间" class="form-control" style="background: #fff url('../../Contents/My97DatePicker/skin/datePicker.gif')no-repeat right; cursor: default; width:300px;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">班次：</div>
+                    <select class="form-control" id="WorkClassCode" style="width:300px;"></select>
+                    <input type="hidden" id="WorkClassName" value="" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 100px; text-align: right;">录入人：</div>
+                    <input type="text" style="width:300px;" class="form-control" id="WorkManName" readonly value="@ViewBag.UserName">
+                    <input type="hidden" id="WorkManID" value="@ViewBag.UserID" />
+                    <input type="hidden" id="RRoleCode" value="@ViewBag.RRoleCode" />
+                </div>
+                <div style="height:10px;">&nbsp;</div>
+                <button type="button" class="input-group-addon btn btn-primary" style="width:100px;height:34px;border-left:1px solid #C0C0C0;" onclick="Btn_Save();">全部提交</button>
+            </div>
+            <div class="form-group" style="height:480px;width:760px;float:left;">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#div1" aria-controls="div1" name="div1" role="tab" data-toggle="tab">本班进尺</a></li>
+                    <li role="presentation"><a href="#div2" aria-controls="div2" name="div2" role="tab" data-toggle="tab">炸药量</a></li>
+                    <li role="presentation"><a href="#div3" aria-controls="div3" name="div3" role="tab" data-toggle="tab">供矿</a></li>
+                    <li role="presentation"><a href="#div4" aria-controls="div4" name="div4" role="tab" data-toggle="tab">放矿</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="div1">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left: -15px;margin-top:10px;">
+                            <input type="button" class="btn btn-primary" value="新增" id="btnAdd_BBJC" onclick="btnADD_BBJC_Click();" />
+                            <table id="table_BBJC" class="table table-bordered table-hover table-striped" style="margin-top:10px;">
+                                <thead id="thead_BBJC">
+                                    <tr>
+                                        <th style="text-align:center">
+                                            位置
+                                        </th>
+                                        <th style="text-align:center">
+                                            本班进尺
+                                        </th>
+                                        <th style="text-align:center">
+                                            单位
+                                        </th>
+                                        <th style="text-align:center">
+                                            操作
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_BBJC"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div2">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left: -15px;margin-top:10px;">
+                            <input type="button" class="btn btn-primary" value="新增" id="btnAdd_ZLY" onclick="btnADD_ZYL_Click();" />
+                            <table id="table_ZYL" class="table table-bordered table-hover table-striped" style="margin-top:10px;">
+                                <thead id="thead_ZYL">
+                                    <tr>
+                                        <th style="text-align:center">
+                                            位置
+                                        </th>
+                                        <th style="text-align:center">
+                                            炸药量
+                                        </th>
+                                        <th style="text-align:center">
+                                            单位
+                                        </th>
+                                        <th style="text-align:center">
+                                            操作
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_ZYL"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div3">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left: -15px;margin-top:10px;">
+                            <input type="button" class="btn btn-primary" value="新增" id="btnAdd_GK" onclick="btnADD_GK_Click();" />
+                            <table id="table_GK" class="table table-bordered table-hover table-striped" style="margin-top:10px;">
+                                <thead id="thead_GK">
+                                    <tr>
+                                        <th style="text-align:center">
+                                            位置
+                                        </th>
+                                        <th style="text-align:center">
+                                            设备
+                                        </th>
+                                        <th style="text-align:center">
+                                            供矿量
+                                        </th>
+                                        <th style="text-align:center">
+                                            单位
+                                        </th>
+                                        <th style="text-align:center">
+                                            类型
+                                        </th>
+                                        <th style="text-align:center">
+                                            车型
+                                        </th>
+                                        <th style="text-align:center">
+                                            供矿量
+                                        </th>
+                                        <th style="text-align:center">
+                                            单位
+                                        </th>
+                                        <th style="text-align:center">
+                                            操作
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_GK"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="div4">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-left: -15px;margin-top:10px;">
+                            <input type="button" class="btn btn-primary" value="新增" id="btnAdd_FK" onclick="btnADD_FK_Click();" />
+                            <table id="table_FK" class="table table-bordered table-hover table-striped" style="margin-top:10px;">
+                                <thead id="thead_FK">
+                                    <tr>
+                                        <th style="text-align:center">
+                                            设备
+                                        </th>
+                                        <th style="text-align:center">
+                                            放矿量
+                                        </th>
+                                        <th style="text-align:center">
+                                            单位
+                                        </th>
+                                        <th style="text-align:center">
+                                            类型
+                                        </th>
+                                        <th style="text-align:center">
+                                            车型
+                                        </th>
+                                        <th style="text-align:center">
+                                            放矿量
+                                        </th>
+                                        <th style="text-align:center">
+                                            单位
+                                        </th>
+                                        <th style="text-align:center">
+                                            操作
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_FK"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        if ("@ViewBag.HaveRight" == "0") {
+            alert("管理员不能填写数据！");
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+        }
+
+        $(function () {
+
+            $("#WorkDate").val(CommonFun_GetNowFormatDate());
+            var data;
+            eval("(data = @Html.Raw(ViewBag.Ret));");
+            // 初始化班次
+            CommonFun_Select_Init("WorkClassCode", data.obj1);
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Btn_Save() {
+
+            var lWR = new T8_WR();
+            lWR.ID = "";
+            lWR.WorkDate = $("#WorkDate").val();
+            lWR.WorkClassCode = $("#WorkClassCode").val();
+            lWR.WorkClassName = $("#WorkClassCode").find(":selected").text();
+            lWR.WorkManID = $("#WorkManID").val();
+            lWR.WorkManName = $("#WorkManName").val();
+            lWR.Status = "1";
+            lWR.Del = "0";
+
+            if ($("#tbody_BBJC").children("tr").length > 0) {
+                $("#tbody_BBJC").children("tr").each(function () {
+                    var lPosition_Data1 = new T8_WR_Position_Data1();
+                    lPosition_Data1.PositionCode = $(this).children().eq(0).attr("name");
+                    lPosition_Data1.FKey = "F_1_1";
+                    lPosition_Data1.Fvalue = $(this).children().eq(1).html();
+                    lPosition_Data1.FUnit = "1";
+                    lWR.WR_Position_Data1_List.push(lPosition_Data1);
+                });
+            }
+
+            if ($("#tbody_ZYL").children("tr").length > 0) {
+                $("#tbody_ZYL").children("tr").each(function () {
+                    var lPosition_Data1 = new T8_WR_Position_Data1();
+                    lPosition_Data1.PositionCode = $(this).children().eq(0).attr("name");
+                    lPosition_Data1.FKey = "F_1_2";
+                    lPosition_Data1.Fvalue = $(this).children().eq(1).html();
+                    lPosition_Data1.FUnit = "10";
+                    lWR.WR_Position_Data1_List.push(lPosition_Data1);
+                });
+            }
+
+            if ($("#tbody_GK").children("tr").length > 0) {
+                $("#tbody_GK").children("tr").each(function () {
+                    var lPosition_Data2_D = new T8_WR_Position_Data2_D();
+                    lPosition_Data2_D.PositionCode = $(this).children().eq(0).attr("name");
+                    lPosition_Data2_D.EquipmentID = $(this).children().eq(1).attr("name");
+                    lPosition_Data2_D.FKey = "F_2_1";
+                    lPosition_Data2_D.FType = $(this).children().eq(4).attr("name");
+                    lPosition_Data2_D.Fvalue0 = $(this).children().eq(2).html();
+                    lPosition_Data2_D.FUnit0 = $(this).children().eq(5).html();
+                    lPosition_Data2_D.FValue1 = $(this).children().eq(6).html();
+                    lPosition_Data2_D.FUnit1 = "11";
+                    lWR.WR_Position_Data2_D_List.push(lPosition_Data2_D);
+                });
+            }
+
+            if ($("#tbody_FK").children("tr").length > 0) {
+                $("#tbody_FK").children("tr").each(function () {
+                    var lEquipment_D = new T8_WR_Equipment_D();
+                    lEquipment_D.EquipmentID = $(this).children().eq(0).attr("name");
+                    lEquipment_D.FKey = "F_3_1";
+                    lEquipment_D.FType = $(this).children().eq(3).attr("name");
+                    lEquipment_D.Fvalue0 = $(this).children().eq(1).html();
+                    lEquipment_D.FUnit0 = $(this).children().eq(4).html();
+                    lEquipment_D.FValue1 = $(this).children().eq(5).html();
+                    lEquipment_D.FUnit1 = "11";
+                    lWR.WR_Equipment_D_List.push(lEquipment_D);
+                });
+            }
+
+            lWR = JSON.stringify({ 'lWR': lWR });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '/C13_MineDataEntry/Save',
+                data: lWR,
+                success: function (response) {
+                    layer.alert("保存成功！", { icon: 1 });
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                },
+                failure: function (response) {
+                    layer.alert("保存失败！", { icon: 2 });
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+
+        //【新增】本班进尺
+        function btnADD_BBJC_Click() {
+            CommonFun_OpenLayer({ "Type": "800*500", "Title": "新增本班进尺", "Url": "/C13_MineDataEntry/BBJC_Add", "Fun_End": function () { } });
+        }
+
+        //【新增】本班进尺-回调
+        function BBJC_Add_One(param) {
+            var lNewRow = $('<tr></tr>');
+            var lPositonTd = $('<td></td>');
+            var lLengthTd = $('<td></td>');
+            var lUnitTd = $('<td></td>');
+            var lOPTd = $('<td></td>');
+            var lOPTd_Edit = $('<input type="button" value="编辑" class="btn btn-primary btn-sm" />');
+            var lOPTd_Del = $('<input type="button" value="删除" class="btn btn-warning btn-sm" />');
+            lOPTd.append(lOPTd_Edit);
+            lOPTd.append('&nbsp;&nbsp;');
+            lOPTd.append(lOPTd_Del);
+            lUnitTd.html('米');
+            lUnitTd.css("text-align", "center");
+
+            var lID = Math.random();
+            lNewRow.attr("name", lID);
+
+            lLengthTd.html(param.Length);
+            lLengthTd.css("text-align", "right");
+
+            lPositonTd.html(param.PositionName);
+            lPositonTd.attr("name", param.PositionCode);
+            lPositonTd.css("text-align", "center");
+
+            lOPTd_Edit.on("click", null, { "ID": lID }, BBJC_Edit_Click);
+
+            lOPTd_Del.on("click", null, { "ID": lID }, BBJC_Del_Click);
+
+            lNewRow.append(lPositonTd);
+            lNewRow.append(lLengthTd);
+            lNewRow.append(lUnitTd);
+            lNewRow.append(lOPTd);
+
+            $("#tbody_BBJC").append(lNewRow);
+
+        }
+
+        //【编辑】本班进尺
+        function BBJC_Edit_Click(param) {
+            var lID = param.data.ID;
+
+            $("#tbody_BBJC tr").each(function () {
+                if ($(this).attr("name") == lID) {
+                    CommonFun_OpenLayer({
+                        "Type": "800*500", "Title": "编辑本班进尺", "Url": "/C13_MineDataEntry/BBJC_Edit"
+                        , "Data": {
+                            "ID": lID
+                            ,
+                            "PositionName": $($(this).children("td")[0]).html()
+                            ,
+                            "PositionCode": $($(this).children("td")[0]).attr("name")
+                            ,
+                            "Length": $($(this).children("td")[1]).html()
+                        }, "Fun_End": function () { }
+                    });
+                };
+            });
+        }
+
+        //【编辑】本班进尺-回调
+        function BBJC_Edit_One(param) {
+            var lID = param.ID;
+            var lPositionName = param.PositionName;
+            var lPositionCode = param.PositionCode;
+            var lLength = param.Length;
+            $("#tbody_BBJC tr").each(function () {
+                if ($(this).attr("name") == lID) {
+                    $($(this).children("td")[0]).html(lPositionName);
+                    $($(this).children("td")[0]).attr("name", param.PositionCode);
+                    $($(this).children("td")[1]).html(lLength);
+                };
+            });
+        }
+
+        //【移除】本班进尺
+        function BBJC_Del_Click(param) {
+            var lID = param.data.ID;
+            //询问框
+            var index = layer.confirm('您确认删除此条记录吗？', {
+                btn: ['确认', '取消'] //按钮
+            }, function () {
+                $("#tbody_BBJC tr").each(function () {
+                    if ($(this).attr("name") == lID) {
+                        $(this).remove();
+                    };
+                    layer.close(index);
+                })
+            }, function () {
+
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+        //【新增】炸药量
+        function btnADD_ZYL_Click() {
+            CommonFun_OpenLayer({ "Type": "800*500", "Title": "新增炸药量", "Url": "/C13_MineDataEntry/ZYL_Add", "Fun_End": function () { } });
+        }
+
+        //【新增】炸药量-回调
+        function ZYL_Add_One(param) {
+            var lNewRow = $('<tr></tr>');
+            var lPositonTd = $('<td></td>');
+            var lWeightTd = $('<td></td>');
+            var lUnitTd = $('<td></td>');
+            var lOPTd = $('<td></td>');
+            var lOPTd_Edit = $('<input type="button" value="编辑" class="btn btn-primary btn-sm" />');
+            var lOPTd_Del = $('<input type="button" value="删除" class="btn btn-warning btn-sm" />');
+            lOPTd.append(lOPTd_Edit);
+            lOPTd.append('&nbsp;&nbsp;');
+            lOPTd.append(lOPTd_Del);
+            lUnitTd.html('KG');
+            lUnitTd.css("text-align", "center");
+
+            var lID = Math.random();
+            lNewRow.attr("name", lID);
+
+            lWeightTd.html(param.Weight);
+            lWeightTd.css("text-align", "right");
+
+            lPositonTd.html(param.PositionName);
+            lPositonTd.attr("name", param.PositionCode);
+            lPositonTd.css("text-align", "center");
+
+            lOPTd_Edit.on("click", null, { "ID": lID }, ZYL_Edit_Click);
+
+            lOPTd_Del.on("click", null, { "ID": lID }, ZYL_Del_Click);
+
+            lNewRow.append(lPositonTd);
+            lNewRow.append(lWeightTd);
+            lNewRow.append(lUnitTd);
+            lNewRow.append(lOPTd);
+
+            $("#tbody_ZYL").append(lNewRow);
+
+        }
+
+        //【编辑】炸药量
+        function ZYL_Edit_Click(param) {
+            var lID = param.data.ID;
+            $("#tbody_ZYL tr").each(function () {
+                if ($(this).attr("name") == lID) {
+                    CommonFun_OpenLayer({
+                        "Type": "800*500", "Title": "编辑炸药量", "Url": "/C13_MineDataEntry/ZYL_Edit"
+                        , "Data": {
+                            "ID": lID
+                            ,
+                            "PositionName": $($(this).children("td")[0]).html()
+                            ,
+                            "PositionCode": $($(this).children("td")[0]).attr("name")
+                            ,
+                            "Weight": $($(this).children("td")[1]).html()
+                        }, "Fun_End": function () { }
+                    });
+                };
+            });
+        }
+
+        //【编辑】炸药量-回调
+        function ZYL_Edit_One(param) {
+            var lID = param.ID;
+            var lPositionName = param.PositionName;
+            var lPositionCode = param.PositionCode;
+            var lWeight = param.Weight;
+            $("#tbody_ZYL tr").each(function () {
+                if ($(this).attr("name") == lID) {
+                    $($(this).children("td")[0]).html(lPositionName);
+                    $($(this).children("td")[0]).attr("name", param.PositionCode);
+                    $($(this).children("td")[1]).html(lWeight);
+                };
+            })
+        }
+
+        //【移除】炸药量
+        function ZYL_Del_Click(param) {
+            var lID = param.data.ID;
+            //询问框
+            var index = layer.confirm('您确认删除此条记录吗？', {
+                btn: ['确认', '取消'] //按钮
+            }, function () {
+                $("#tbody_ZYL tr").each(function () {
+                    if ($(this).attr("name") == lID) {
+                        $(this).remove();
+                    };
+                    layer.close(index);
+                })
+            }, function () {
+
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+        //【新增】供矿
+        function btnADD_GK_Click() {
+            CommonFun_OpenLayer({ "Type": "800*500", "Title": "新增供矿", "Url": "/C13_MineDataEntry/GK_Add", "Fun_End": function () { } });
+        }
+
+        //【新增】供矿-回调
+        function GK_Add_One(param) {
+            var lNewRow = $('<tr></tr>');
+            //位置
+            var lPositonTd = $('<td></td>');
+            //设备
+            var lEquipmentTd = $('<td></td>');
+            //供矿量
+            var lCarCntTd = $('<td></td>');
+            //计量单位
+            var lUnit1Td = $('<td></td>');
+            //矿石类型
+            var lMineTypeTd = $('<td></td>');
+            //车型
+            var lCarTypeTd = $('<td></td>');
+            //供矿量
+            var lWeightTd = $('<td></td>');
+            //计量单位
+            var lUnit2Td = $('<td></td>');
+            //操作
+            var lOPTd = $('<td></td>');
+
+            var lID = Math.random();
+            lNewRow.attr("name", lID);
+
+            lPositonTd.html(param.PositionName);
+            lPositonTd.attr("name", param.PositionCode);
+            lPositonTd.css("text-align", "center");
+
+            lEquipmentTd.html(param.EquipmentName);
+            lEquipmentTd.attr("name", param.EquipmentID);
+            lEquipmentTd.css("text-align", "center");
+
+            lCarCntTd.html(param.CarCnt);
+            lCarCntTd.css("text-align", "right");
+
+            lUnit1Td.html("车");
+            lUnit1Td.css("text-align", "center");
+
+            lMineTypeTd.html(param.MineTypeName);
+            lMineTypeTd.attr("name", param.MineTypeCode);
+            lMineTypeTd.css("text-align", "center");
+
+            lCarTypeTd.html(param.CarTypeName);
+            lCarTypeTd.css("text-align", "center");
+
+            lWeightTd.html(param.Weight);
+            lWeightTd.css("text-align", "right");
+
+            lUnit2Td.html('吨');
+            lUnit2Td.css("text-align", "center");
+
+            var lOPTd_Edit = $('<input type="button" value="编辑" class="btn btn-primary btn-sm" />');
+            var lOPTd_Del = $('<input type="button" value="删除" class="btn btn-warning btn-sm" />');
+
+            lOPTd.append(lOPTd_Edit);
+            lOPTd.append('&nbsp;&nbsp;');
+            lOPTd.append(lOPTd_Del);
+
+            lOPTd_Edit.on("click", null,
+                {
+                    "ID": lID
+                }, GK_Edit_Click);
+
+            lOPTd_Del.on("click", null, { "ID": lID }, GK_Del_Click);
+
+            lNewRow.append(lPositonTd);
+            lNewRow.append(lEquipmentTd);
+            lNewRow.append(lCarCntTd);
+            lNewRow.append(lUnit1Td);
+            lNewRow.append(lMineTypeTd);
+            lNewRow.append(lCarTypeTd);
+            lNewRow.append(lWeightTd);
+            lNewRow.append(lUnit2Td);
+            lNewRow.append(lOPTd);
+
+            $("#tbody_GK").append(lNewRow);
+
+        }
+
+        //【编辑】供矿
+        function GK_Edit_Click(param) {
+            var lID = param.data.ID;
+            $("#tbody_GK tr").each(function () {
+                if ($(this).attr("name") == lID) {
+
+                    CommonFun_OpenLayer({
+                        "Type": "800*500", "Title": "编辑供矿", "Url": "/C13_MineDataEntry/GK_Edit", "Data": {
+                            "ID": lID
+                            ,
+                            "PositionName": $($(this).children("td")[0]).html()
+                            ,
+                            "PositionCode": $($(this).children("td")[0]).attr("name")
+                            ,
+                            "EquipmentID": $($(this).children("td")[1]).attr("name")
+                            ,
+                            "CarCnt": $($(this).children("td")[2]).html()
+                            ,
+                            "MineTypeCode": $($(this).children("td")[4]).attr("name")
+                            ,
+                            "CarTypeName": $($(this).children("td")[5]).html()
+                            ,
+                            "Weight": $($(this).children("td")[6]).html()
+                        }, "Fun_End": function () { }
+                    });
+                };
+            })
+
+
+        }
+
+        //【编辑】供矿-回调
+        function GK_Edit_One(param) {
+            var lID = param.ID;
+            var lPositionName = param.PositionName;
+            var lPositionCode = param.PositionCode;
+            var lEquipmentName = param.EquipmentName
+            var lEquipmentID = param.EquipmentID;
+            var lCarCnt = param.CarCnt;
+            var lMineTypeName = param.MineTypeName;
+            var lMineTypeCode = param.MineTypeCode;
+            var lCarTypeName = param.CarTypeName;
+            var lCarTypeCode = param.CarTypeCode;
+            var lWeight = param.Weight;
+            $("#tbody_GK tr").each(function () {
+                if ($(this).attr("name") == lID) {
+                    $($(this).children("td")[0]).html(lPositionName);
+                    $($(this).children("td")[0]).attr("name", param.PositionCode);
+
+                    $($(this).children("td")[1]).html(lEquipmentName);
+                    $($(this).children("td")[1]).attr("name", lEquipmentID);
+
+                    $($(this).children("td")[2]).html(lCarCnt);
+
+                    $($(this).children("td")[4]).html(lMineTypeName);
+                    $($(this).children("td")[4]).attr("name", lMineTypeCode);
+
+                    $($(this).children("td")[5]).html(lCarTypeName);
+
+                    $($(this).children("td")[6]).html(lWeight);
+                };
+            })
+        }
+
+        //【移除】供矿
+        function GK_Del_Click(param) {
+            var lID = param.data.ID;
+            //询问框
+            var index = layer.confirm('您确认删除此条记录吗？', {
+                btn: ['确认', '取消'] //按钮
+            }, function () {
+                $("#tbody_GK tr").each(function () {
+                    if ($(this).attr("name") == lID) {
+                        $(this).remove();
+                    };
+                    layer.close(index);
+                })
+            }, function () {
+
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+        //【新增】放矿
+        function btnADD_FK_Click() {
+            CommonFun_OpenLayer({ "Type": "400*500", "Title": "新增放矿", "Url": "/C13_MineDataEntry/FK_Add", "Fun_End": function () { } });
+        }
+
+        //【新增】放矿-回调
+        function FK_Add_One(param) {
+            var lNewRow = $('<tr></tr>');
+            //设备
+            var lEquipmentTd = $('<td></td>');
+            //供矿量
+            var lCarCntTd = $('<td></td>');
+            //计量单位
+            var lUnit1Td = $('<td></td>');
+            //矿石类型
+            var lMineTypeTd = $('<td></td>');
+            //车型
+            var lCarTypeTd = $('<td></td>');
+            //供矿量
+            var lWeightTd = $('<td></td>');
+            //计量单位
+            var lUnit2Td = $('<td></td>');
+            //操作
+            var lOPTd = $('<td></td>');
+
+            var lID = Math.random();
+            lNewRow.attr("name", lID);
+
+            lEquipmentTd.html(param.EquipmentName);
+            lEquipmentTd.attr("name", param.EquipmentID);
+            lEquipmentTd.css("text-align", "center");
+
+            lCarCntTd.html(param.CarCnt);
+            lCarCntTd.css("text-align", "right");
+
+            lUnit1Td.html("车");
+            lUnit1Td.css("text-align", "center");
+
+            lMineTypeTd.html(param.MineTypeName);
+            lMineTypeTd.attr("name", param.MineTypeCode);
+            lMineTypeTd.css("text-align", "center");
+
+            lCarTypeTd.html(param.CarTypeName);
+            lCarTypeTd.css("text-align", "center");
+
+            lWeightTd.html(param.Weight);
+            lWeightTd.css("text-align", "right");
+
+            lUnit2Td.html('吨');
+            lUnit2Td.css("text-align", "center");
+
+            var lOPTd_Edit = $('<input type="button" value="编辑" class="btn btn-primary btn-sm" />');
+            var lOPTd_Del = $('<input type="button" value="删除" class="btn btn-warning btn-sm" />');
+
+            lOPTd.append(lOPTd_Edit);
+            lOPTd.append('&nbsp;&nbsp;');
+            lOPTd.append(lOPTd_Del);
+
+            lOPTd_Edit.on("click", null,
+                {
+                    "ID": lID
+                }, FK_Edit_Click);
+
+            lOPTd_Del.on("click", null, { "ID": lID }, FK_Del_Click);
+
+            lNewRow.append(lEquipmentTd);
+            lNewRow.append(lCarCntTd);
+            lNewRow.append(lUnit1Td);
+            lNewRow.append(lMineTypeTd);
+            lNewRow.append(lCarTypeTd);
+            lNewRow.append(lWeightTd);
+            lNewRow.append(lUnit2Td);
+            lNewRow.append(lOPTd);
+
+            $("#tbody_FK").append(lNewRow);
+
+        }
+
+        //【编辑】放矿
+        function FK_Edit_Click(param) {
+            var lID = param.data.ID;
+            $("#tbody_FK tr").each(function () {
+                if ($(this).attr("name") == lID) {
+
+                    CommonFun_OpenLayer({
+                        "Type": "800*500", "Title": "编辑放矿", "Url": "/C13_MineDataEntry/FK_Edit", "Data": {
+                            "ID": lID
+                            ,
+                            "EquipmentID": $($(this).children("td")[0]).attr("name")
+                            ,
+                            "CarCnt": $($(this).children("td")[1]).html()
+                            ,
+                            "MineTypeCode": $($(this).children("td")[3]).attr("name")
+                            ,
+                            "CarTypeName": $($(this).children("td")[4]).html()
+                            ,
+                            "Weight": $($(this).children("td")[5]).html()
+                        }, "Fun_End": function () { }
+                    });
+                };
+            })
+
+
+        }
+
+        //【编辑】放矿-回调
+        function FK_Edit_One(param) {
+            var lID = param.ID;
+            var lEquipmentName = param.EquipmentName
+            var lEquipmentID = param.EquipmentID;
+            var lCarCnt = param.CarCnt;
+            var lMineTypeName = param.MineTypeName;
+            var lMineTypeCode = param.MineTypeCode;
+            var lCarTypeName = param.CarTypeName;
+            var lCarTypeCode = param.CarTypeCode;
+            var lWeight = param.Weight;
+            $("#tbody_FK tr").each(function () {
+                if ($(this).attr("name") == lID) {
+
+                    $($(this).children("td")[0]).html(lEquipmentName);
+                    $($(this).children("td")[0]).attr("name", lEquipmentID);
+
+                    $($(this).children("td")[1]).html(lCarCnt);
+
+                    $($(this).children("td")[3]).html(lMineTypeName);
+                    $($(this).children("td")[3]).attr("name", lMineTypeCode);
+
+                    $($(this).children("td")[4]).html(lCarTypeName);
+
+                    $($(this).children("td")[5]).html(lWeight);
+                };
+            })
+        }
+
+        //【移除】放矿
+        function FK_Del_Click(param) {
+            var lID = param.data.ID;
+            //询问框
+            var index = layer.confirm('您确认删除此条记录吗？', {
+                btn: ['确认', '取消'] //按钮
+            }, function () {
+                $("#tbody_FK tr").each(function () {
+                    if ($(this).attr("name") == lID) {
+                        $(this).remove();
+                    };
+                    layer.close(index);
+                })
+            }, function () {
+
+            });
+        }
+
+    </script>
+
+</body>
+</html>

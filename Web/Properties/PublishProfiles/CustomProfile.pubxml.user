@@ -13,76 +13,76 @@
       <publishTime>10/29/2018 11:28:27</publishTime>
     </File>
     <File Include="AutoFiles/T1_DataDirc.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T1_Page.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T1_User.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T1_User_Admin.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T1_User_Excel.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_DRole.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_Org.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_Position.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_Position_Org.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_PRole.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_PRole_Detail.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_RRole.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_RRole_OperLog.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T2_RRole_User.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T3_Dynamic_Field.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T3_Equipment.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T3_EquipmentType.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T3_Equipment_Position.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T3_Job.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T4_Config.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T4_MP.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T4_MP_Detail.js">
       <publishTime>11/14/2018 17:28:04</publishTime>
     </File>
     <File Include="AutoFiles/T4_MP_Detail_1.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T4_MP_Detail_2.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T5_Equipment_WorkRecord.js">
       <publishTime>10/25/2018 11:16:18</publishTime>
@@ -91,55 +91,91 @@
       <publishTime>10/25/2018 11:16:18</publishTime>
     </File>
     <File Include="AutoFiles/T5_MessageBoard.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T5_WorkRecord.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T5_WorkRecord_Detail.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T5_WorkRecord_Detail_Field.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Check.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Check_B1_ZongBiao.js">
-      <publishTime>11/26/2018 15:14:25</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Check_B3_CaiJue.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Check_B4_JueJin.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Check_B6_CaiKuang.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Check_B7_ChuKuang.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Plan.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Plan_B1_ZongBiao.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Plan_B3_CaiJue.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Plan_B4_JueJin.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Plan_B6_CaiKuang.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T6_Plan_B7_ChuKuang.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="AutoFiles/T7_Sample.js">
-      <publishTime>11/26/2018 15:14:26</publishTime>
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_ChuKuang.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_Report1.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_Report1_Config.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_Report2.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_Report3.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_WR.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_WR_Equipment.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_WR_Equipment_D.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_WR_Position.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_WR_Position_Data1.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_WR_Position_Data2.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
+    </File>
+    <File Include="AutoFiles/T8_WR_Position_Data2_D.js">
+      <publishTime>12/26/2018 09:30:17</publishTime>
     </File>
     <File Include="bin/ApplicationInsights.config">
       <publishTime>10/29/2018 11:28:27</publishTime>
@@ -175,10 +211,10 @@
       <publishTime>04/23/2012 15:23:58</publishTime>
     </File>
     <File Include="bin/MyTool.dll">
-      <publishTime>12/21/2018 10:17:01</publishTime>
+      <publishTime>12/27/2018 15:07:27</publishTime>
     </File>
     <File Include="bin/MyTool.pdb">
-      <publishTime>12/21/2018 10:17:01</publishTime>
+      <publishTime>12/27/2018 15:07:27</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>08/03/2014 20:33:56</publishTime>
@@ -253,10 +289,10 @@
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Web.dll">
-      <publishTime>12/21/2018 10:55:42</publishTime>
+      <publishTime>12/27/2018 15:25:22</publishTime>
     </File>
     <File Include="bin/Web.pdb">
-      <publishTime>12/21/2018 10:55:42</publishTime>
+      <publishTime>12/27/2018 15:25:22</publishTime>
     </File>
     <File Include="bin/zh-Hans/System.Net.Http.Formatting.resources.dll">
       <publishTime>01/28/2015 04:02:44</publishTime>
@@ -1906,7 +1942,7 @@
       <publishTime>12/19/2018 14:44:52</publishTime>
     </File>
     <File Include="Scripts_Common/Common.js">
-      <publishTime>10/31/2018 17:11:22</publishTime>
+      <publishTime>12/26/2018 14:35:38</publishTime>
     </File>
     <File Include="Scripts_Common/PageList.js">
       <publishTime>10/29/2018 09:17:41</publishTime>
@@ -1915,7 +1951,7 @@
       <publishTime>10/31/2018 10:31:06</publishTime>
     </File>
     <File Include="Views/A01_Login/Login.cshtml">
-      <publishTime>12/20/2018 14:18:19</publishTime>
+      <publishTime>12/26/2018 14:22:41</publishTime>
     </File>
     <File Include="Views/A02_HomePage/EditPassword.cshtml">
       <publishTime>10/04/2018 13:04:30</publishTime>
@@ -2091,14 +2127,29 @@
     <File Include="Views/C91_MessageBoard/PageList.cshtml">
       <publishTime>12/04/2018 14:51:11</publishTime>
     </File>
+    <File Include="Views/D01_Plan/Detail.cshtml">
+      <publishTime>12/26/2018 13:54:23</publishTime>
+    </File>
     <File Include="Views/D01_Plan/PlanList.cshtml">
-      <publishTime>12/20/2018 16:44:49</publishTime>
+      <publishTime>12/26/2018 13:54:23</publishTime>
     </File>
     <File Include="Views/D02_Check/CheckList.cshtml">
-      <publishTime>12/20/2018 16:44:49</publishTime>
+      <publishTime>12/26/2018 13:54:23</publishTime>
+    </File>
+    <File Include="Views/D02_Check/Detail.cshtml">
+      <publishTime>12/26/2018 13:54:23</publishTime>
     </File>
     <File Include="Views/E01_Sample/Index.cshtml">
       <publishTime>11/01/2018 15:30:15</publishTime>
+    </File>
+    <File Include="Views/F01_Report/List.cshtml">
+      <publishTime>12/27/2018 16:40:15</publishTime>
+    </File>
+    <File Include="Views/F02_Report/List.cshtml">
+      <publishTime>12/27/2018 16:40:12</publishTime>
+    </File>
+    <File Include="Views/F03_Report/List.cshtml">
+      <publishTime>12/26/2018 15:21:01</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>07/09/2018 16:16:06</publishTime>

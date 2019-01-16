@@ -178,6 +178,18 @@
     <Content Include="AutoFiles\T6_Plan_B6_CaiKuang.js" />
     <Content Include="AutoFiles\T6_Plan_B7_ChuKuang.js" />
     <Content Include="AutoFiles\T7_Sample.js" />
+    <Content Include="AutoFiles\T8_ChuKuang.js" />
+    <Content Include="AutoFiles\T8_Report1.js" />
+    <Content Include="AutoFiles\T8_Report1_Config.js" />
+    <Content Include="AutoFiles\T8_Report2.js" />
+    <Content Include="AutoFiles\T8_Report3.js" />
+    <Content Include="AutoFiles\T8_WR.js" />
+    <Content Include="AutoFiles\T8_WR_Equipment.js" />
+    <Content Include="AutoFiles\T8_WR_Equipment_D.js" />
+    <Content Include="AutoFiles\T8_WR_Position.js" />
+    <Content Include="AutoFiles\T8_WR_Position_Data1.js" />
+    <Content Include="AutoFiles\T8_WR_Position_Data2.js" />
+    <Content Include="AutoFiles\T8_WR_Position_Data2_D.js" />
     <Content Include="Contents\bootstrap-3.3.7\css\bootstrap-theme.css" />
     <Content Include="Contents\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
     <Content Include="Contents\bootstrap-3.3.7\css\bootstrap.css" />
@@ -697,6 +709,10 @@
     <Content Include="Contents\zTree_v3\js\jquery.ztree.exhide.js" />
     <Content Include="Contents\zTree_v3\js\jquery.ztree.exhide.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="Models\T8_WR.js" />
+    <Content Include="Models\T8_WR_Equipment_D.js" />
+    <Content Include="Models\T8_WR_Position_Data1.js" />
+    <Content Include="Models\T8_WR_Position_Data2_D.js" />
     <Content Include="Scripts_Common\Common.js" />
     <Content Include="Scripts_Common\PageList.js" />
     <Content Include="Scripts_Common\ParaData.js" />
@@ -718,6 +734,7 @@
     <Compile Include="Api\C02_EquipmentTypeController.cs" />
     <Compile Include="Api\C03_EquiDataEntryController.cs" />
     <Compile Include="Api\C04_EquiDataController.cs" />
+    <Compile Include="Api\C13_MineDataEntryController.cs" />
     <Compile Include="Api\C11_MineDataEntryController.cs" />
     <Compile Include="Api\C12_MineDataController.cs" />
     <Compile Include="Api\C21_RManageController.cs" />
@@ -726,6 +743,9 @@
     <Compile Include="Api\D01_PlanController.cs" />
     <Compile Include="Api\D02_CheckController.cs" />
     <Compile Include="Api\E01_SampleController.cs" />
+    <Compile Include="Api\F01_ReportController.cs" />
+    <Compile Include="Api\F02_ReportController.cs" />
+    <Compile Include="Api\F03_ReportController.cs" />
     <Compile Include="Api\Z01_LoginController.cs" />
     <Compile Include="Api\Z02_BatchController.cs" />
     <Compile Include="Api\Z03_ZDController.cs" />
@@ -775,6 +795,18 @@
     <Compile Include="AutoFiles\T6_Plan_B3_CaiJue.cs" />
     <Compile Include="AutoFiles\T6_Plan_B4_JueJin.cs" />
     <Compile Include="AutoFiles\T7_Sample.cs" />
+    <Compile Include="AutoFiles\T8_ChuKuang.cs" />
+    <Compile Include="AutoFiles\T8_Report1.cs" />
+    <Compile Include="AutoFiles\T8_Report1_Config.cs" />
+    <Compile Include="AutoFiles\T8_Report2.cs" />
+    <Compile Include="AutoFiles\T8_Report3.cs" />
+    <Compile Include="AutoFiles\T8_WR.cs" />
+    <Compile Include="AutoFiles\T8_WR_Equipment.cs" />
+    <Compile Include="AutoFiles\T8_WR_Equipment_D.cs" />
+    <Compile Include="AutoFiles\T8_WR_Position.cs" />
+    <Compile Include="AutoFiles\T8_WR_Position_Data1.cs" />
+    <Compile Include="AutoFiles\T8_WR_Position_Data2.cs" />
+    <Compile Include="AutoFiles\T8_WR_Position_Data2_D.cs" />
     <Compile Include="Controllers\A01_LoginController.cs" />
     <Compile Include="Controllers\A02_HomePageController.cs" />
     <Compile Include="Controllers\B01_PRoleController.cs" />
@@ -788,6 +820,7 @@
     <Compile Include="Controllers\C02_EquipmentTypeController.cs" />
     <Compile Include="Controllers\C03_EquiDataEntryController.cs" />
     <Compile Include="Controllers\C04_EquiDataController.cs" />
+    <Compile Include="Controllers\C13_MineDataEntryController.cs" />
     <Compile Include="Controllers\C11_MineDataEntryController.cs" />
     <Compile Include="Controllers\C12_MineDataController.cs" />
     <Compile Include="Controllers\C21_RManageController.cs" />
@@ -797,6 +830,9 @@
     <Compile Include="Controllers\D02_PlanController.cs" />
     <Compile Include="Controllers\E01_SampleController.cs" />
     <Compile Include="Controllers\C91_MessageBoardController.cs" />
+    <Compile Include="Controllers\F01_ReportController.cs" />
+    <Compile Include="Controllers\F02_ReportController.cs" />
+    <Compile Include="Controllers\F03_ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -830,6 +866,13 @@
     <Compile Include="Models\T6_Check_B7_ChuKuang.cs" />
     <Compile Include="Models\T6_Plan_B7_ChuKuang.cs" />
     <Compile Include="Models\T7_Sample.cs" />
+    <Compile Include="Models\T8_Report1.cs" />
+    <Compile Include="Models\T8_Report2.cs" />
+    <Compile Include="Models\T8_Report3.cs" />
+    <Compile Include="Models\T8_WR.cs" />
+    <Compile Include="Models\T8_WR_Equipment_D.cs" />
+    <Compile Include="Models\T8_WR_Position_Data1.cs" />
+    <Compile Include="Models\T8_WR_Position_Data2_D.cs" />
     <Compile Include="MyLib\BaseController.cs" />
     <Compile Include="MyLib\CacheHelper.cs" />
     <Compile Include="MyLib\CookieHelper.cs" />
@@ -931,6 +974,18 @@
     <Content Include="Views\C91_MessageBoard\Detail.cshtml" />
     <Content Include="Views\D01_Plan\Detail.cshtml" />
     <Content Include="Views\D02_Check\Detail.cshtml" />
+    <Content Include="Views\F03_Report\List.cshtml" />
+    <Content Include="Views\F02_Report\List.cshtml" />
+    <Content Include="Views\F01_Report\List.cshtml" />
+    <Content Include="Views\F01_Report\Edit.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\RSubmit.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\PageList.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\Edit.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\Add.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\BBJC_Add.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\ZYL_Add.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\GK_Add.cshtml" />
+    <Content Include="Views\C13_MineDataEntry\FK_Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -983,7 +1038,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>false</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>25849</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

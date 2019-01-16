@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/A02_HomePage/_MB.cshtml";
+}
+
+<link href="../../Contents/MyUI/css/content.css" rel="stylesheet" />
+<script src="../../Contents/My97DatePicker/WdatePicker.js"></script>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-top:10px; margin-left:-30px;margin-bottom:10px;">
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <span class="input-group-addon" style="width:100px;">日期</span>
+                        <input id="Para1" type="text" readonly="readonly" placeholder="日期" class="form-control" style="background: #fff url('../../Contents/My97DatePicker/skin/datePicker.gif')no-repeat right; cursor: default;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-xs-4">
+                    <div class="input-group input-group-sm" style="width:95%;">
+                        <input type="button" class="btn btn-primary" style="margin-top:-3px;margin-left:10px;" value="查询" onclick="Btn_Search();" />
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box" style="height:1000px; width:2000px;overflow:auto;">
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th rowspan="3" style="width:150px;text-align:center;line-height:90px;">车间</th>
+                                <th rowspan="3" style="width:100px;text-align:center;line-height:90px;">溜井</th>
+                                <th colspan="9" style="text-align:center;">采场出矿情况</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4" style="text-align:center;">出矿品位(%)</th>
+                                <th rowspan="2" style="text-align:center;line-height:60px;">出矿量(t)</th>
+                                <th colspan="4" style="text-align:center;">金属量(t)</th>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center;">锌</th>
+                                <th style="text-align:center;">铁</th>
+                                <th style="text-align:center;">铜</th>
+                                <th style="text-align:center;">铅</th>
+                                <th style="text-align:center;">锌</th>
+                                <th style="text-align:center;">铁</th>
+                                <th style="text-align:center;">铜</th>
+                                <th style="text-align:center;">铅</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagelist_1_tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../Scripts_Common/PageList.js"></script>
+
+<script type="text/javascript">
+    var dataObj = PageListFun_Data();
+    dataObj.UserID = "@ViewBag.UserID";
+    dataObj.OrgCode = "@ViewBag.OrgCode";
+    dataObj.RRoleCode = "@ViewBag.RRoleCode";
+    dataObj.DRoleType = "@ViewBag.DRoleType";
+    dataObj.Fun_Loading = function () {
+        initHtml();
+    };
+
+    $(function () {
+        var w = $(window).width() - 240 - 20;
+        var h = $(window).height() - 140 - 20;
+        $("div.widget-box").width(w);
+        $("div.widget-box").height(h);
+
+        Crumbs.Data[0].Name = "车间日报";
+        Crumbs.Data[0].Url = "/F02_Report/List?r=" + Math.random() + "&CurrPage=" + CurrPage;
+        Crumbs.Fun_SetCrumbs();
+
+        $("#Para1").val("2018-12-21");
+        // $("#Para1").val(CommonFun_GetYesterdayFormatDate());
+
+        initHtml();
+    });
+
+    function initHtml() {
+        var ajaxObj = CommonFun_Ajax();
+        ajaxObj.url = "../api/F02_Report/GetList";
+        ajaxObj.data = { "para": dataObj.PageList_Json() };
+        ajaxObj.getData(function (data) {
+            if (data.obj1.length > 0) {
+                tableInit(data.obj1);
+            }
+        }, function () {
+            // Error
+        });
+    }
+
+    function tableInit(obj) {
+        var html = "";
+        var cjname = "";
+
+        for (var i = 0; i < obj.length; i++) {
+            var row = obj[i];
+
+            html += "<tr>";
+            if (row.CJName == "") {
+                html += "<td style='text-align:center;'></td>";
+            } else {
+                if (cjname == row.CJName) {
+                } else {
+                    var height = 18;
+                    if (row.Y1 > 1) {
+                        height = 18 + 34 * (parseInt(row.Y1, 10) - 1)
+                    }
+
+                    html += "<td rowspan='" + row.Y1 + "' style='text-align:center;line-height:" + height + "px;'>" + row.CJName + "</td>";
+                    cjname = row.CJName
+                }
+            }
+            html += "<td style='text-align:center;'>" + row.LJName + "</td>";
+            html += "<td style='text-align:center;'>" + row.PW_Xin + "</td>";
+            html += "<td style='text-align:center;'>" + row.PW_Tie + "</td>";
+            html += "<td style='text-align:center;'>" + row.PW_Tong + "</td>";
+            html += "<td style='text-align:center;'>" + row.PW_Qian + "</td>";
+            html += "<td style='text-align:center;'>" + row.W + "</td>";
+            html += "<td style='text-align:center;'>" + row.W_Xin + "</td>";
+            html += "<td style='text-align:center;'>" + row.W_Tie + "</td>";
+            html += "<td style='text-align:center;'>" + row.W_Tong + "</td>";
+            html += "<td style='text-align:center;'>" + row.W_Qian + "</td>";
+            html += "</tr>";
+        }
+
+        $("#pagelist_1_tbody").html(html);
+    }
+</script>
+
+<script type="text/javascript">
+    function Btn_Search() {
+        initHtml();
+    }
+</script>

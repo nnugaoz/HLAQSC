@@ -257,6 +257,21 @@ namespace Web.Models
             return DataTool.Get_DataTable_From_DataSet_2(sql, ref dt);
         }
 
+        public int MDE_GetDFType_ByF(ref DataTable dt)
+        {
+            string sql = ""
+                + " select "
+                    + " row_number() over (order by Type) i "
+                    + ",DFKey "
+                    + ",Type SelectVal "
+                    + ",Title SelectTitle "
+                + " from T3_Dynamic_FieldType "
+                + " where 1=1 "
+                    + " and DFKey like 'F_%' ";
+
+            return DataTool.Get_DataTable_From_DataSet_2(sql, ref dt);
+        }
+
         public int MDE_GetDFUnit(ref DataTable dt)
         {
             string sql = ""
@@ -272,6 +287,23 @@ namespace Web.Models
 
             return DataTool.Get_DataTable_From_DataSet_2(sql, ref dt);
         }
+
+        public int MDE_GetDFUnit_ByF(ref DataTable dt)
+        {
+            string sql = ""
+                + " select "
+                    + " row_number() over (order by Type) i "
+                    + ",DFKey "
+                    + ",Type SelectVal "
+                    + ",Title SelectTitle "
+                    + ",Unit_0_Rate "
+                + " from T3_Dynamic_FieldUnit "
+                + " where 1=1 "
+                    + " and DFKey like 'F_%' ";
+
+            return DataTool.Get_DataTable_From_DataSet_2(sql, ref dt);
+        }
+
         #endregion 井下数据录入
 
         #region 接口

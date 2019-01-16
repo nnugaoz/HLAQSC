@@ -1,0 +1,177 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="../../Contents/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../Contents/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../../Contents/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../Contents/layer/layer.js"></script>
+
+    <script src="../../Scripts_Common/Common.js"></script>
+    <script src="../../Scripts_Common/ParaData.js"></script>
+
+    <script src="../../Contents/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+    <input type="hidden" id="ID" value="">
+    <div style="margin:10px;">
+        <div>
+            <div class="form-group" style="height:280px;width:300px;float:left;">
+                <div class="input-group">
+                    <div class="input-group-addon" style="width: 50px; text-align: right; color: red;">日期：</div>
+                    <input id="ReportDate" type="text" readonly="readonly" placeholder="日期" class="form-control" style="background: #fff url('../../Contents/My97DatePicker/skin/datePicker.gif')no-repeat right; cursor: default;" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+                </div>
+            </div>
+            <div id="dt" class="form-group" style="height:280px;width:365px;float:left;overflow:auto;">
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;margin-right:30px;">
+        <div class="form-group" style="text-align:right;">
+            <button type="button" class="btn btn-primary" onclick="Do_Save();">提交</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var date1 = "";
+        var date2 = "";
+
+        function thread() {
+            date2 = $("#ReportDate").val();
+
+            if (date1 != date2) {
+                Do_Load();
+                date1 = date2;
+            }
+
+            setTimeout("thread()", 500);
+        }
+
+        $(function () {
+            $("#ReportDate").val(CommonFun_GetYesterdayFormatDate());
+
+            thread();
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Do_Load() {
+            var date = $("#ReportDate").val();
+            if (date == "") {
+                alert("请输入日期！");
+                return false;
+            }
+
+            layer.load(2);
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/F01_Report/DoLoad";
+            ajaxObj.data = { "ReportDate": date };
+            ajaxObj.getData(function (data) {
+                layer.closeAll("loading");
+
+                var obj = data.obj1;
+                if (obj == null || obj.length == 0) {
+                    $("#dt").html("");
+                } else {
+                    var html = "";
+                    for (var i = 0; i < obj.length; i++) {
+                        var row = obj[i];
+                        if (i > 0) {
+                            html += "<div style='height:5px;'>&nbsp;</div>";
+                        }
+                        html += "<div class='input-group'>";
+                        html += "<div class='input-group-addon' style='width:200px;text-align:right;color:red;'>" + row.Type1_Name + " " + row.Type2_Name + "：</div>";
+                        html += "<input type='text' style='width:150px;' class='form-control' id='" + row.Type2_Code + "' value='" + row.Val + "' maxlength='10'>";
+                        html += "</div>"
+                    }
+                    $("#dt").html(html);
+                }
+            }, function () {
+                // Error
+                layer.closeAll("loading");
+            });
+        }
+
+        function Do_Save() {
+            var date = $("#ReportDate").val();
+            var v1 = $("#001004").val();
+            var v2 = $("#002004").val();
+            var v3 = $("#004003").val();
+            var v4 = $("#008004").val();
+            var v5 = $("#013004").val();
+
+            if (date == "") {
+                alert("请输入日期！");
+                return false;
+            }
+            if (v1 == null || v1 == "") {
+                alert("请输入处理量t！");
+                return false;
+            }
+            if (v2 == null || v2 == "") {
+                alert("请输入原矿金属量t！");
+                return false;
+            }
+            if (v3 == null || v3 == "") {
+                alert("请输入检斤量t！");
+                return false;
+            }
+            if (v4 == null || v4 == "") {
+                alert("请输入回收率！");
+                return false;
+            }
+            if (v5 == null || v5 == "") {
+                alert("请输入外排矿量！");
+                return false;
+            }
+            v1 = parseFloat(v1);
+            if (isNaN(v1)) {
+                v1 = 0;
+            }
+            v2 = parseFloat(v2);
+            if (isNaN(v2)) {
+                v2 = 0;
+            }
+            v3 = parseFloat(v3);
+            if (isNaN(v3)) {
+                v3 = 0;
+            }
+            v4 = parseFloat(v4);
+            if (isNaN(v4)) {
+                v4 = 0;
+            }
+            v5 = parseFloat(v5);
+            if (isNaN(v5)) {
+                v5 = 0;
+            }
+
+            layer.load(2);
+            var ajaxObj = CommonFun_Ajax();
+            ajaxObj.url = "../api/F01_Report/DoSave";
+            ajaxObj.data = { "ReportDate": date, "Vals": v1 + "," + v2 + "," + v3 + "," + v4 + "," + v5 };
+            ajaxObj.getData(function (data) {
+                layer.closeAll("loading");
+
+                if (data.ret_status == ParaData.ret.Succes) {
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                } else {
+                    alert("保存失败！");
+                }
+            }, function () {
+                // Error
+                layer.closeAll("loading");
+            });
+        }
+    </script>
+</body>
+</html>
